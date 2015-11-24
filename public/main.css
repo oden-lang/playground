@@ -1,0 +1,86 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #111;
+}
+
+body {
+  margin: 0;
+}
+
+[role="main"] {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/**
+ * Common
+ */
+.topbar,
+.source,
+.output,
+.console {
+  padding: .625rem;
+}
+
+/**
+ * Topbar
+ */
+.topbar {
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 175%;
+  padding-bottom: .625rem;
+}
+
+/**
+ * Editor
+ */
+.editor {
+  display: flex;
+  height: 75%;
+}
+
+/* Source */
+.source {
+  height: 100%;
+  padding: 0;
+  flex-basis: 50%;
+}
+.source textarea {
+  border: 0;
+  background: none;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  padding: .625rem;
+  font-size: inherit;
+  font-family: monospace;
+}
+
+/* Output */
+.output {
+  background: #ddd;
+  flex-basis: 50%;
+}
+
+/**
+ * Console
+ */
+.console {
+  background: dimgray;
+  color: white;
+  height: 25%;
+  min-height: 100px;
+}

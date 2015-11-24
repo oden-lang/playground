@@ -1,5 +1,15 @@
 {
 	"ImportPath": "github.com/oden-lang/playground",
 	"GoVersion": "go1.5.1",
-	"Deps": []
+	"Deps": [
+		{
+			"ImportPath": "github.com/codegangsta/negroni",
+			"Comment": "v0.1-70-gc7477ad",
+			"Rev": "c7477ad8e330bef55bf1ebe300cf8aa67c492d1b"
+		},
+		{
+			"ImportPath": "github.com/unrolled/render",
+			"Rev": "83f2ba57c12cec399ef137457b1957e41ef0bbe8"
+		}
+	]
 }
