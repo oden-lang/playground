@@ -1,14 +1,12 @@
 {
-  "name": "go-getting-started",
-  "description": "Go Getting Started Example App",
+  "name": "playground",
+  "description": "The Oden Language Playground",
   "keywords": [
     "getting-started",
-    "go",
-    "sample",
-    "example"
+    "oden"
   ],
   "image": "heroku/go:1.5",
-  "mount_dir": "src/github.com/heroku/go-getting-started",
-  "website": "http://github.com/heroku/go-getting-started",
-  "repository": "http://github.com/heroku/go-getting-started"
+  "mount_dir": "src/github.com/oden-lang/playground",
+  "website": "http://github.com/oden-lang/playground",
+  "repository": "http://github.com/oden-lang/playground"
 }
