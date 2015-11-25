@@ -1,53 +1,83 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"net/http"
 	"os"
-	"os/exec"
-	"strings"
 
 	"github.com/oden-lang/playground/Godeps/_workspace/src/github.com/codegangsta/negroni"
+	"github.com/oden-lang/playground/Godeps/_workspace/src/github.com/gorilla/mux"
 	"github.com/oden-lang/playground/Godeps/_workspace/src/github.com/unrolled/render"
 )
 
-func getOdenVersion() (string, error) {
-	fmt.Println("PATH", os.Getenv("PATH"))
-	cmd := exec.Command("odenc", "version")
-	cmd.Stdin = strings.NewReader("")
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	err := cmd.Run()
-	if err != nil {
-		return "", err
-	}
-	return out.String(), nil
-}
+const defaultProgram = `(pkg main)
+
+(import fmt)
+
+(define (main) (fmt.Println "Hello, World!"))`
 
 type ViewModel struct {
-	OdenSource    string
-	GoOutput      string
-	ConsoleOutput string
+	Version          string
+	OdenSource       string
+	GoOutput         string
+	ConsoleOutput    string
+	CompilationError error
 }
 
 func main() {
+	findOdenc()
 	version, err := getOdenVersion()
-	fmt.Println("Oden version:", version, err)
+	if err != nil {
+		fmt.Fprint(os.Stderr, err)
+		os.Exit(1)
+		return
+	}
+	fmt.Println("Oden version:", version)
 
 	r := render.New(render.Options{
 		Layout:     "layout",
 		Extensions: []string{".html"},
 	})
-	mux := http.NewServeMux()
+	router := mux.NewRouter()
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		r.HTML(w, http.StatusOK, "index", ViewModel{
-			"(pkg main)",
-			"package main",
+			version,
+			defaultProgram,
 			"",
+			"",
+			nil,
 		})
-	})
+	}).Methods("GET")
+
+	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		if err := req.ParseForm(); err != nil {
+			r.HTML(w, http.StatusBadRequest, "bad-request", nil)
+			return
+		}
+
+		source := req.FormValue("odenSource")
+		goCode, err := compile(source)
+
+		if err != nil {
+			r.HTML(w, http.StatusOK, "index", ViewModel{
+				version,
+				source,
+				"",
+				"",
+				err,
+			})
+			return
+		}
+
+		r.HTML(w, http.StatusOK, "index", ViewModel{
+			version,
+			source,
+			goCode,
+			"",
+			nil,
+		})
+	}).Methods("POST")
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -55,7 +85,7 @@ func main() {
 	}
 
 	n := negroni.Classic()
-	n.UseHandler(mux)
+	n.UseHandler(router)
 	n.Use(negroni.NewStatic(http.Dir("public")))
 	n.Run(":" + port)
 }

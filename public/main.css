@@ -1,21 +1,80 @@
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
+/*
+ * Accent: #68a7fd
+ * Dark: #242424
+ * Source: #fffafa
+ * Output: #fff2d2
+ */
+
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
 html,
 body {
   height: 100%;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: Menlo, Monaco, monospace;
   -webkit-font-smoothing: antialiased;
-  color: #111;
+  font-size: .875rem;
 }
 
 body {
   margin: 0;
 }
+/* Header */
+
+form {
+  height: 100%;
+}
+pre {
+  margin: 0;
+}
+
+[role="banner"] {
+  display: flex;
+  align-items: flex-start;
+  padding: .625rem;
+  background: #68a7fd;
+  color: white;
+}
+
+[role="banner"] h1 {
+  display: inline-block;
+  margin: 0 .25rem 0 0;
+  font-size: 1.5rem;
+}
+
+[role="banner"] .version {
+  flex-grow: 1;
+  margin: 0 .5rem;
+  color: #242424;
+  font-size: .8rem;
+
+}
+
+[role="banner"] button {
+  padding: .3125rem .875rem;
+  margin: 0;
+  border: 0;
+  border-radius: 2px;
+  background: #242424;
+  color: white;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+[role="banner"] button:active,
+[role="banner"] button:focus,
+[role="banner"] button:hover {
+  background: #424242;
+}
+
+/* Main */
 
 [role="main"] {
   display: flex;
@@ -23,64 +82,55 @@ body {
   height: 100%;
 }
 
-/**
- * Common
- */
-.topbar,
+/* Editor */
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 65%;
+}
+
+.source {
+  display: flex;
+  flex-basis: 50%;
+  background: #fafafa;
+}
+
+.source textarea {
+  padding: 0;
+  width: 100%;
+  border: 0;
+  background: none;
+  outline: 0;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: none;
+}
+
+.output {
+  flex-basis: 50%;
+  background: #fff2d2;
+  font-size: 1rem;
+}
+
+/* Console */
+
+.console {
+  height: 35%;
+  background: #242424;
+  color: white;
+}
+
+/* Common */
+
 .source,
 .output,
 .console {
   padding: .625rem;
 }
 
-/**
- * Topbar
- */
-.topbar {
-}
-.topbar h1 {
-  margin: 0;
-  font-size: 175%;
-  padding-bottom: .625rem;
-}
-
-/**
- * Editor
- */
-.editor {
-  display: flex;
-  height: 75%;
-}
-
-/* Source */
-.source {
-  height: 100%;
-  padding: 0;
-  flex-basis: 50%;
-}
-.source textarea {
-  border: 0;
-  background: none;
-  resize: none;
-  width: 100%;
-  height: 100%;
-  padding: .625rem;
-  font-size: inherit;
-  font-family: monospace;
-}
-
-/* Output */
-.output {
-  background: #ddd;
-  flex-basis: 50%;
-}
-
-/**
- * Console
- */
-.console {
-  background: dimgray;
-  color: white;
-  height: 25%;
-  min-height: 100px;
+@media screen and (min-width: 48rem) {
+  .editor {
+    flex-direction: row;
+  }
 }

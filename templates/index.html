@@ -1,16 +1,20 @@
-<main role="main">
-<header class="topbar">
-  <h1>Oden Playground</h1>
-</header>
-<div class="editor">
-  <div class="source">
-    <textarea autofocus>{{.OdenSource}}</textarea>
+<form action="/" method="POST" enctype="application/x-www-form-urlencoded">
+  <div role="banner">
+    <h1>Oden Playground</h1>
+    <span class="version">{{.Version}}</span>
+    <button type="submit">Run</button>
   </div>
-  <div class="output">
-    <code>{{.GoOutput}}</code>
+  <main role="main">
+  <div class="editor">
+    <div class="source">
+      <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
+    </div>
+    <div class="output">
+      <pre><code>{{.GoOutput}}</code></pre>
+    </div>
   </div>
-</div>
-<div class="console">
-  <code>{{.ConsoleOutput}}</code>
-</div>
-</main>
+  <div class="console">
+    <code>{{.ConsoleOutput}}</code>
+  </div>
+  </main>
+</form>
