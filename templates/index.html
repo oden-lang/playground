@@ -9,9 +9,17 @@
     <div class="source">
       <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
     </div>
+    {{ if .CompilationError }}
+    <div class="output error">
+      <pre>
+        {{.CompilationError}}
+      </pre>
+    </div>
+    {{ else }}
     <div class="output">
       <pre><code>{{.GoOutput}}</code></pre>
     </div>
+    {{ end }}
   </div>
   <div class="console">
     <code>{{.ConsoleOutput}}</code>

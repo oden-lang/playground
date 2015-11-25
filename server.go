@@ -60,6 +60,7 @@ func main() {
 		goCode, err := compile(source)
 
 		if err != nil {
+			fmt.Println("Failed to compile:", err)
 			r.HTML(w, http.StatusOK, "index", ViewModel{
 				version,
 				source,

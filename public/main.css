@@ -33,6 +33,7 @@ form {
 }
 pre {
   margin: 0;
+  font-family: inherit;
 }
 
 [role="banner"] {
@@ -111,6 +112,10 @@ pre {
   flex-basis: 50%;
   background: #fff2d2;
   font-size: 1rem;
+}
+.output.error {
+  background: #ffe2e2;
+  color: red;
 }
 
 /* Console */
