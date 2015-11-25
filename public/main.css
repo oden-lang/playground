@@ -31,9 +31,10 @@ body {
 form {
   height: 100%;
 }
-pre {
+pre, code {
   margin: 0;
   font-family: inherit;
+  font-size: inherit;
 }
 
 [role="banner"] {
