@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/oden-lang/playground",
-	"GoVersion": "go1.5.1",
+	"GoVersion": "go1.5",
 	"Deps": [
 		{
 			"ImportPath": "github.com/codegangsta/negroni",
