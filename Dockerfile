@@ -5,4 +5,4 @@ RUN curl -L https://github.com/oden-lang/oden/releases/download/0.1.8/oden-0.1.8
 
 RUN mkdir -p /app/bin
 RUN ln -s /app/oden/bin/odenc /app/user/bin/odenc
-RUN ln -s /app/oden/bin/odenc /app/bin/odenc
+RUN ln -s /app/oden/bin/odenc /usr/bin/odenc
