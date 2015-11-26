@@ -20,7 +20,7 @@ type ViewModel struct {
 	Version          string
 	OdenSource       string
 	GoOutput         string
-	ConsoleOutput    string
+	ConsoleOutput    *PlayResponse
 	CompilationError error
 }
 
@@ -45,7 +45,7 @@ func main() {
 			version,
 			defaultProgram,
 			"",
-			"",
+			nil,
 			nil,
 		})
 	}).Methods("GET")
@@ -58,14 +58,26 @@ func main() {
 
 		source := req.FormValue("odenSource")
 		goCode, err := compile(source)
-
 		if err != nil {
 			fmt.Println("Failed to compile:", err)
 			r.HTML(w, http.StatusOK, "index", ViewModel{
 				version,
 				source,
 				"",
+				nil,
+				err,
+			})
+			return
+		}
+
+		consoleOutput, err := runGoPkg(goCode)
+		if err != nil {
+			fmt.Println("Failed to run:", err)
+			r.HTML(w, http.StatusOK, "index", ViewModel{
+				version,
+				source,
 				"",
+				nil,
 				err,
 			})
 			return
@@ -75,7 +87,7 @@ func main() {
 			version,
 			source,
 			goCode,
-			"",
+			consoleOutput,
 			nil,
 		})
 	}).Methods("POST")

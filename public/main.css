@@ -129,6 +129,9 @@ pre, code {
   background: #242424;
   color: white;
 }
+.console.error {
+  color: #ff7777;
+}
 
 /* CodeMirror */
 .editor .CodeMirror {

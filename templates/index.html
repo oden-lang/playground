@@ -19,8 +19,21 @@
     </div>
     {{ end }}
   </div>
-  <div class="console">
-    <code>{{.ConsoleOutput}}</code>
-  </div>
+  {{ if .ConsoleOutput }}
+    {{ if .ConsoleOutput.Errors }}
+    <div class="console error">
+      <pre><code>{{ .ConsoleOutput.Errors }}</code></pre>
+    </div>
+    {{ else }}
+      {{ range .ConsoleOutput.Events }}
+        <div class="console">
+          <pre><code>{{.Message}}</code></pre>
+        </div>
+      {{ end }}
+    {{ end }}
+  {{ else }}
+    <div class="console">
+    </div>
+  {{ end }}
   </main>
 </form>
