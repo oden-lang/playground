@@ -11,13 +11,11 @@
     </div>
     {{ if .CompilationError }}
     <div class="output error">
-      <pre>
-        {{.CompilationError}}
-      </pre>
+      <textarea>{{.CompilationError}}</textarea>
     </div>
     {{ else }}
     <div class="output">
-      <pre><code>{{.GoOutput}}</code></pre>
+      <textarea>{{.GoOutput}}</textarea>
     </div>
     {{ end }}
   </div>
