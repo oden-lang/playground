@@ -112,11 +112,12 @@ pre, code {
 }
 
 .output {
+  background: #fff2d2;
   flex-basis: 50%;
   height: 100%;
 }
 .output.error {
-  background: #fff2d2;
+  background: #ffd2d2;
   color: red;
 }
 
@@ -140,12 +141,12 @@ pre, code {
 
 .source .cm-s-default .CodeMirror-gutters,
 .source .cm-s-default.CodeMirror {
-  background: #fffafa;
+  background: none;
 }
 
 .output .cm-s-default .CodeMirror-gutters,
 .output .cm-s-default.CodeMirror {
-  background: #fff2d2;
+  background: none;
 }
 
 .source .cm-s-default.CodeMirror .CodeMirror-cursor {
