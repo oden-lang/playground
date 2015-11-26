@@ -3,7 +3,7 @@
 ## Run
 
 ```bash
-go run server.go
+ODENC=path/to/bin/odenc go run server.go
 # or with docker:
 docker-compose up web
 ```
