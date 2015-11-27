@@ -25,11 +25,9 @@
       <pre><code>{{ .ConsoleOutput.Errors }}</code></pre>
     </div>
     {{ else }}
-      {{ range .ConsoleOutput.Events }}
-        <div class="console">
-          <pre><code>{{.Message}}</code></pre>
-        </div>
-      {{ end }}
+      <div class="console">
+        <pre><code>{{ range .ConsoleOutput.Events }}{{.Message}}{{ end }}</code></pre>
+      </div>
     {{ end }}
   {{ else }}
     <div class="console">

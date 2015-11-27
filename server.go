@@ -70,7 +70,7 @@ func main() {
 			return
 		}
 
-		consoleOutput, err := runGoPkg(goCode)
+		consoleOutput, err := runGoPkg(goCode, version)
 		if err != nil {
 			fmt.Println("Failed to run:", err)
 			r.HTML(w, http.StatusOK, "index", ViewModel{

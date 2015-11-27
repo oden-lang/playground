@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -23,13 +26,23 @@ type PlayResponse struct {
 
 const compileUrl = "https://play.golang.org/compile"
 
-func runGoPkg(code string) (*PlayResponse, error) {
-	resp, err := http.PostForm(
-		compileUrl,
-		url.Values{
-			"version": {"2"},
-			"body":    {code},
-		})
+func runGoPkg(code string, odenVersion string) (*PlayResponse, error) {
+	client := &http.Client{}
+	form := url.Values{
+		"version": {"2"},
+		"body":    {code},
+	}
+	req, err := http.NewRequest("POST", compileUrl, bytes.NewBufferString(form.Encode()))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("User-Agent", fmt.Sprintf("oden-playground/%s", odenVersion))
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
 
 	if resp.StatusCode == 200 {
 		var response PlayResponse
@@ -41,5 +54,9 @@ func runGoPkg(code string) (*PlayResponse, error) {
 		}
 	}
 
-	return nil, errors.New("Failed to run Go code, status: " + resp.Status)
+	if body, err := ioutil.ReadAll(resp.Body); err != nil {
+		return nil, errors.New("Failed to run Go code: " + string(body))
+	} else {
+		return nil, errors.New("Failed to run Go code, status: " + resp.Status)
+	}
 }
