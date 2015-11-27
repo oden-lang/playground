@@ -1,7 +1,7 @@
 <form action="/" method="POST" enctype="application/x-www-form-urlencoded">
   <div role="banner">
     <h1>Oden Playground</h1>
-    <span class="version">{{.Version}}</span>
+    <span class="label">ALPHA</span>
     <button type="submit">Run</button>
   </div>
   <main role="main">
@@ -31,7 +31,15 @@
     {{ end }}
   {{ else }}
     <div class="console">
+      <div class="no-output">Run your program and see the output here!</div>
     </div>
   {{ end }}
   </main>
+  <div class="footer">
+    <span class="powered-by">Powered by 
+      <a href="https://oden-lang.github.io/">Oden {{.Version}}</a>
+      and
+      <a href="https://play.golang.org/">play.golang.org</a>.
+    </span>
+  </div>
 </form>

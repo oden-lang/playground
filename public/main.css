@@ -28,7 +28,9 @@ body {
 }
 /* Header */
 
-form {
+body > form {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 pre, code {
@@ -37,13 +39,6 @@ pre, code {
   font-size: inherit;
 }
 
-[role="banner"] {
-  display: flex;
-  align-items: flex-start;
-  padding: .625rem;
-  background: #68a7fd;
-  color: white;
-}
 
 [role="banner"] h1 {
   display: inline-block;
@@ -51,12 +46,12 @@ pre, code {
   font-size: 1.5rem;
 }
 
-[role="banner"] .version {
+[role="banner"] .label {
   flex-grow: 1;
-  margin: 0 .5rem;
-  color: #242424;
+  margin: 0 .25rem;
+  font-weight: bold;
   font-size: .8rem;
-
+  color: #fff2d2;
 }
 
 [role="banner"] button {
@@ -80,16 +75,16 @@ pre, code {
 
 [role="main"] {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  height: 100%;
 }
 
 /* Editor */
 
 .editor {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  height: 65%;
 }
 
 .source textarea,
@@ -104,17 +99,20 @@ pre, code {
   resize: none;
 }
 
+.source,
+.output {
+  position: relative;
+  flex-basis: 50%;
+  flex-grow: 1;
+}
+
 .source {
   display: flex;
-  flex-basis: 50%;
-  height: 100%;
   background: #fffafa;
 }
 
 .output {
   background: #fff2d2;
-  flex-basis: 50%;
-  height: 100%;
 }
 .output.error {
   background: #ffd2d2;
@@ -125,16 +123,25 @@ pre, code {
 
 .console {
   padding: .625rem;
-  height: 35%;
+  min-height: 8rem;
+  max-height: 16rem;
   background: #242424;
   color: white;
+  overflow: auto;
 }
 .console.error {
   color: #ff7777;
 }
+.console .no-output {
+  color: #999;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-style: italic;
+}
 
 /* CodeMirror */
+
 .editor .CodeMirror {
+  position: static;
   width: 100%;
   height: 100%;
   padding: .5rem;
@@ -159,7 +166,28 @@ pre, code {
   background: rgba(0,0,0,.25);
 }
 
+/* Footer */
+
+.footer .powered-by {
+  font-style: italic;
+}
+
 /* Common */
+
+[role="banner"],
+.footer {
+  display: flex;
+  flex-shrink: 0;
+  padding: .625rem;
+  background: #68a7fd;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: white;
+}
+[role="banner"] a,
+.footer a {
+  color: #fff2d2;
+  font-weight: bold;
+}
 
 @media screen and (min-width: 48rem) {
   .editor {
