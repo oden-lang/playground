@@ -12,7 +12,7 @@ var outputCodeMirror = CodeMirror.fromTextArea(outputTextArea, {
 });
 
 document.addEventListener('keyup', function (event) {
-  if (event.ctrlKey && event.keyCode === 13) {
+  if (event.ctrlKey && event.keyCode === 82) {
     document.querySelector('form').submit();
   }
 });

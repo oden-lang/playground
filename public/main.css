@@ -1,5 +1,6 @@
 /*
  * Accent: #68a7fd
+ * Textual accent: #fd0;
  * Dark: #242424
  * Source: #fffafa
  * Output: #fff2d2
@@ -26,7 +27,6 @@ html {
 body {
   margin: 0;
 }
-/* Header */
 
 body > form {
   display: flex;
@@ -39,19 +39,30 @@ pre, code {
   font-size: inherit;
 }
 
+/* Header */
+
+[role="banner"] {
+  display: flex;
+  justify-content: space-between;
+}
 
 [role="banner"] h1 {
-  display: inline-block;
-  margin: 0 .25rem 0 0;
-  font-size: 1.5rem;
+  position: relative;
+  margin: 0;
+  font-size: 1.25rem;
 }
 
 [role="banner"] .label {
+  position: absolute;
+  right: -1.5rem;
+  top: 0;
   flex-grow: 1;
   margin: 0 .25rem;
   font-weight: bold;
-  font-size: .8rem;
-  color: #fff2d2;
+  font-size: .75rem;
+  color: #fd0;
+  text-transform: uppercase;
+  transform: rotate(15deg);
 }
 
 [role="banner"] button {
@@ -69,6 +80,12 @@ pre, code {
 [role="banner"] button:focus,
 [role="banner"] button:hover {
   background: #424242;
+}
+
+[role="banner"] .shortcut {
+  font-family: monospace;
+  font-weight: bold;
+  color: #fd0;
 }
 
 /* Main */
@@ -187,6 +204,12 @@ pre, code {
 .footer a {
   color: #fff2d2;
   font-weight: bold;
+}
+
+@media screen and (min-width: 30rem) {
+  [role="banner"] h1 {
+    font-size: 1.5rem;
+  }
 }
 
 @media screen and (min-width: 48rem) {
