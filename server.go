@@ -59,7 +59,7 @@ func main() {
 		source := req.FormValue("odenSource")
 		goCode, err := compile(source)
 		if err != nil {
-			fmt.Println("Failed to compile:", err)
+			fmt.Println("Failed to compile due to", err, ":\n", source)
 			r.HTML(w, http.StatusOK, "index", ViewModel{
 				version,
 				source,
@@ -72,7 +72,7 @@ func main() {
 
 		consoleOutput, err := runGoPkg(goCode, version)
 		if err != nil {
-			fmt.Println("Failed to run:", err)
+			fmt.Println("Failed to run due to", err, ":\n", goCode)
 			r.HTML(w, http.StatusOK, "index", ViewModel{
 				version,
 				source,
@@ -81,6 +81,11 @@ func main() {
 				err,
 			})
 			return
+		}
+		if consoleOutput.Errors != "" {
+			fmt.Println("Run with errors:\n", consoleOutput.Errors)
+		} else {
+			fmt.Println("Run:\n", goCode)
 		}
 
 		r.HTML(w, http.StatusOK, "index", ViewModel{
