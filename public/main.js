@@ -1,5 +1,3 @@
-//document.querySelector('textarea').select();
-
 var sourceTextArea = document.querySelector('.editor .source textarea');
 var sourceCodeMirror = CodeMirror.fromTextArea(sourceTextArea, {
   mode: 'clojure',
@@ -11,4 +9,10 @@ var outputCodeMirror = CodeMirror.fromTextArea(outputTextArea, {
   mode: 'go',
   readOnly: true,
   title: 'Go output'
+});
+
+document.addEventListener('keyup', function (event) {
+  if (event.ctrlKey && event.keyCode === 13) {
+    document.querySelector('form').submit();
+  }
 });
