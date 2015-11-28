@@ -1,5 +1,5 @@
 /*
- * Accent: #68a7fd
+ * Accent: #37a8ff
  * Textual accent: #fd0;
  * Dark: #242424
  * Source: #fffafa
@@ -50,6 +50,10 @@ pre, code {
   position: relative;
   margin: 0;
   font-size: 1.25rem;
+  padding-left: 28px;
+  background-image: url(/icon-24.png);
+  background-size: 24px;
+  background-repeat: no-repeat;
 }
 
 [role="banner"] .label {
@@ -206,7 +210,7 @@ pre, code {
   display: flex;
   flex-shrink: 0;
   padding: .625rem;
-  background: #68a7fd;
+  background: #37a8ff;
   font-family: 'Helvetica Neue', sans-serif;
   color: white;
 }
