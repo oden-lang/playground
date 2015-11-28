@@ -86,6 +86,8 @@ pre, code {
   font-family: monospace;
   font-weight: bold;
   color: #fd0;
+  margin-left: .25em;
+  font-size: 125%;
 }
 
 /* Main */
