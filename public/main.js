@@ -1,7 +1,10 @@
+'use strict';
+
 var sourceTextArea = document.querySelector('.editor .source textarea');
 var sourceCodeMirror = CodeMirror.fromTextArea(sourceTextArea, {
   mode: 'clojure',
-  title: 'Oden source code'
+  title: 'Oden source code',
+  matchBrackets: true
 });
 
 var outputTextArea = document.querySelector('.editor .output textarea');

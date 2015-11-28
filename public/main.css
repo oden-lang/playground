@@ -185,6 +185,14 @@ pre, code {
   background: rgba(0,0,0,.25);
 }
 
+.source div.CodeMirror span.CodeMirror-matchingbracket {
+  color: #997;
+  background: #fd0;
+}
+.source div.CodeMirror span.CodeMirror-nonmatchingbracket {
+  color: #f55;
+}
+
 /* Footer */
 
 .footer .powered-by {
