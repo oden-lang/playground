@@ -26,13 +26,10 @@ html {
 
 body {
   margin: 0;
-}
-
-body > form {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
+
 pre, code {
   margin: 0;
   font-family: inherit;

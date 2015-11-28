@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
@@ -16,12 +17,18 @@ const defaultProgram = `(pkg main)
 
 (define (main) (fmt.Println "Hello, World!"))`
 
+type RunRequest struct {
+	OdenSource string `json:"odenSource"`
+}
+type RunResponse struct {
+	Error         string        `json:"error"`
+	GoOutput      string        `json:"goOutput"`
+	ConsoleOutput *PlayResponse `json:"consoleOutput"`
+}
+
 type ViewModel struct {
-	Version          string
-	OdenSource       string
-	GoOutput         string
-	ConsoleOutput    *PlayResponse
-	CompilationError error
+	Version    string
+	OdenSource string
 }
 
 func main() {
@@ -44,28 +51,24 @@ func main() {
 		r.HTML(w, http.StatusOK, "index", ViewModel{
 			version,
 			defaultProgram,
-			"",
-			nil,
-			nil,
 		})
 	}).Methods("GET")
 
-	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		if err := req.ParseForm(); err != nil {
-			r.HTML(w, http.StatusBadRequest, "bad-request", nil)
+	router.HandleFunc("/compile", func(w http.ResponseWriter, req *http.Request) {
+
+		var runReq RunRequest
+		if err := json.NewDecoder(req.Body).Decode(&runReq); err != nil {
+			http.Error(w, "Could not decode JSON", http.StatusBadRequest)
 			return
 		}
 
-		source := req.FormValue("odenSource")
-		goCode, err := compile(source)
+		goCode, err := compile(runReq.OdenSource)
 		if err != nil {
-			fmt.Println("Failed to compile due to", err, ":\n", source)
-			r.HTML(w, http.StatusOK, "index", ViewModel{
-				version,
-				source,
+			fmt.Println("Failed to compile due to", err, ":\n", runReq.OdenSource)
+			r.JSON(w, http.StatusOK, RunResponse{
+				err.Error(),
 				"",
 				nil,
-				err,
 			})
 			return
 		}
@@ -73,12 +76,10 @@ func main() {
 		consoleOutput, err := runGoPkg(goCode, version)
 		if err != nil {
 			fmt.Println("Failed to run due to", err, ":\n", goCode)
-			r.HTML(w, http.StatusOK, "index", ViewModel{
-				version,
-				source,
+			r.JSON(w, http.StatusOK, RunResponse{
+				err.Error(),
 				"",
 				nil,
-				err,
 			})
 			return
 		}
@@ -88,12 +89,10 @@ func main() {
 			fmt.Println("Run:\n", goCode)
 		}
 
-		r.HTML(w, http.StatusOK, "index", ViewModel{
-			version,
-			source,
+		r.JSON(w, http.StatusOK, RunResponse{
+			"",
 			goCode,
 			consoleOutput,
-			nil,
 		})
 	}).Methods("POST")
 

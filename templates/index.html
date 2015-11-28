@@ -1,45 +1,25 @@
-<form action="/" method="POST" enctype="application/x-www-form-urlencoded">
-  <div role="banner">
-    <h1>Oden Playground <span class="label">Alpha</span></h1>
+<div role="banner">
+  <h1>Oden Playground <span class="label">Alpha</span></h1>
 
-    <button type="submit">Run <span class="shortcut">C-r</span></button>
+  <button>Run <span class="shortcut">C-r</span></button>
+</div>
+<main role="main">
+<div class="editor">
+  <div class="source">
+    <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
   </div>
-  <main role="main">
-  <div class="editor">
-    <div class="source">
-      <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
-    </div>
-    {{ if .CompilationError }}
-    <div class="output error">
-      <textarea>{{.CompilationError}}</textarea>
-    </div>
-    {{ else }}
-    <div class="output">
-      <textarea>{{.GoOutput}}</textarea>
-    </div>
-    {{ end }}
+  <div class="output">
+    <textarea></textarea>
   </div>
-  {{ if .ConsoleOutput }}
-    {{ if .ConsoleOutput.Errors }}
-    <div class="console error">
-      <pre><code>{{ .ConsoleOutput.Errors }}</code></pre>
-    </div>
-    {{ else }}
-      <div class="console">
-        <pre><code>{{ range .ConsoleOutput.Events }}{{.Message}}{{ end }}</code></pre>
-      </div>
-    {{ end }}
-  {{ else }}
-    <div class="console">
-      <div class="no-output">Run your program and see the output here!</div>
-    </div>
-  {{ end }}
-  </main>
-  <div class="footer">
-    <span class="powered-by">Powered by
-      <a href="https://oden-lang.github.io/">Oden {{.Version}}</a>
-      and
-      <a href="https://play.golang.org/">play.golang.org</a>.
-    </span>
-  </div>
-</form>
+</div>
+<div class="console">
+  <div class="no-output">Run your program and see the output here!</div>
+</div>
+</main>
+<div class="footer">
+  <span class="powered-by">Powered by
+    <a href="https://oden-lang.github.io/">Oden {{.Version}}</a>
+    and
+    <a href="https://play.golang.org/">play.golang.org</a>.
+  </span>
+</div>
