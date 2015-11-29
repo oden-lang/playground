@@ -21,7 +21,7 @@ func findOdenc() {
 }
 
 func getOdenVersion() (string, error) {
-	out, err := run(odenc, "version")
+	out, err := run(odenc, "--version")
 	if err != nil {
 		return "", errors.New("Failed to get odenc version: " + err.Error())
 	}
@@ -46,7 +46,7 @@ func compile(code string) (string, error) {
 		return "", errors.New("Failed to write Oden source file: " + err.Error())
 	}
 
-	out, err := run(odenc, "-p", tmpDir, "-o", tmpDir, "compile")
+	out, err := run(odenc, "-p", tmpDir, "-o", tmpDir)
 	if err != nil {
 		return "", err
 	}
