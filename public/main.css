@@ -44,6 +44,8 @@ pre, code {
 }
 
 [role="banner"] h1 {
+  display: flex;
+  align-items: center;
   margin: 0;
   font-size: 1.25rem;
   padding-left: 28px;
@@ -55,10 +57,12 @@ pre, code {
 [role="banner"] .label {
   flex-grow: 1;
   margin: 0 .25rem;
+  padding: 2px 4px;
+  border-radius: 4px;rcase;
   font-weight: bold;
   font-size: .75rem;
-  color: #fd0;
-  text-transform: uppercase;
+  text-transform: uppebackground: #22699f;
+  color: #37a8ff;
 }
 
 [role="banner"] button {
