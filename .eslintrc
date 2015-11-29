@@ -10,7 +10,8 @@
     "underscore": false
   },
     "globals": {
-      "CodeMirror": true
+      "CodeMirror": true,
+      "twttr": true
     },
     "rules": {
       "no-alert": 2,

@@ -36,7 +36,9 @@ pre, code {
   font-size: inherit;
 }
 
+.button,
 button {
+  display: inline-block;
   padding: .5rem 1rem;
   margin: 0;
   border: 0;
@@ -46,6 +48,17 @@ button {
   font-size: 100%;
   font-family: inherit;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button:active,
+button:active,
+.button:focus,
+button:focus,
+.button:hover,
+button:hover {
+  background: #424242;
 }
 
 /* Header */
@@ -80,11 +93,6 @@ button {
 [role="banner"] .actions {
   flex-shrink: 0;
   flex-grow: 0;
-}
-[role="banner"] button:active,
-[role="banner"] button:focus,
-[role="banner"] button:hover {
-  background: #424242;
 }
 
 [role="banner"] .shortcut {
@@ -244,11 +252,16 @@ button {
   border-radius: 2px;
 }
 .share-screen .inner .actions {
+  display: flex;
   margin-top: 2rem;
   text-align: right;
 }
-.share-screen .inner .actions button {
-  width: 100%;
+.share-screen .inner .actions > * {
+  flex: 1 0 50%;
+  margin-right: .5rem;
+}
+.share-screen .inner .actions .close {
+  background-color: #a11;
 }
 
 /* Common */

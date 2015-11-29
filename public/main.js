@@ -97,6 +97,18 @@ function setupEditor() {
   function showShareScreen(url) {
     var $url = $shareScreen.find('.url');
     $url.val(url);
+
+    var $tweetButton = $shareScreen.find('.tweet-button');
+    var intentUri = 'http://twitter.com/share?url=' +
+      encodeURIComponent(url) +
+      '&text=' +
+      encodeURIComponent('Check this #odenlang program out:');
+    $tweetButton.attr('href', intentUri);
+    $tweetButton.click(function (e) {
+      e.preventDefault();
+      window.open(intentUri, '_blank', 'location=yes,height=300,width=600,scrollbars=no,status=no');
+    });
+
     $shareScreen.css('display', 'flex');
     $url.select();
   }
