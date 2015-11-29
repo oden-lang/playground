@@ -36,6 +36,18 @@ pre, code {
   font-size: inherit;
 }
 
+button {
+  padding: .5rem 1rem;
+  margin: 0;
+  border: 0;
+  border-radius: 2px;
+  background: #242424;
+  color: white;
+  font-size: 100%;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 /* Header */
 
 [role="banner"] {
@@ -68,17 +80,6 @@ pre, code {
 [role="banner"] .actions {
   flex-shrink: 0;
   flex-grow: 0;
-}
-[role="banner"] button {
-  padding: .5rem 1rem;
-  margin: 0;
-  border: 0;
-  border-radius: 2px;
-  background: #242424;
-  color: white;
-  font-size: 100%;
-  font-family: inherit;
-  cursor: pointer;
 }
 [role="banner"] button:active,
 [role="banner"] button:focus,
@@ -202,6 +203,44 @@ pre, code {
 
 .footer .powered-by {
   font-style: italic;
+}
+
+/* Share Screen */
+
+.share-screen {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .8);
+  padding: 2rem;
+}
+.share-screen .inner {
+  background: #37a8ff;
+  width: 100%;
+  max-width: 36rem;
+  padding: 2rem;
+  color: white;
+  border-radius: 2px;
+}
+.share-screen input {
+  width: 100%;
+  font-size: 150%;
+  padding: 1rem;
+  border: none;
+  border-radius: 2px;
+}
+.share-screen .inner .actions {
+  margin-top: 2rem;
+  text-align: right;
+}
+.share-screen .inner .actions button {
+  width: 100%;
 }
 
 /* Common */

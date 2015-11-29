@@ -87,9 +87,33 @@ function setupEditor() {
   $('button.run').click(function () {
     compileAndRun();
   });
+
+  var $shareScreen = $('.share-screen');
+
+  function hideShareScreen() {
+    $shareScreen.css('display', 'none');
+  }
+
+  function showShareScreen(url) {
+    var $url = $shareScreen.find('.url');
+    $url.val(url);
+    $shareScreen.css('display', 'flex');
+    $url.select();
+  }
+
+  $shareScreen.find('.close').click(hideShareScreen);
+  $shareScreen.click(function (e) {
+    if ($shareScreen.is(e.target)) {
+      hideShareScreen();
+    }
+  });
+
   $('button.share').click(function () {
     var prg = btoa(sourceCM.getValue());
-    window.history.pushState({}, 'Shared Program', '/program/' + prg);
+    var path = '/program/' + prg;
+    var url = window.location.origin + path;
+    window.history.pushState({}, 'Shared Program', path);
+    showShareScreen(url);
   });
 }
 
