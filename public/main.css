@@ -41,29 +41,28 @@ pre, code {
 [role="banner"] {
   display: flex;
   justify-content: space-between;
-}
-
-[role="banner"] h1 {
-  display: flex;
   align-items: center;
-  margin: 0;
-  font-size: 1.25rem;
-  padding-left: 28px;
-  background-image: url(/icon-24.png);
-  background-size: 24px;
-  background-repeat: no-repeat;
 }
 
-[role="banner"] .label {
-  flex-grow: 1;
-  margin: 0 .25rem;
-  padding: .125rem .25rem;
-  border-radius: 4px;
+[role="banner"] .home {
+  padding-left: 42px;
+  background-image: url(/icon.png);
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  text-decoration: none;
+  text-align: center;
+}
+[role="banner"] .home h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+[role="banner"] .tagline {
+  display: block;
   font-weight: bold;
-  font-size: .75rem;
-  text-transform: uppercase;
-  background: #22699f;
-  color: #37a8ff;
+  font-style: italic;
+  font-size: 80%;
+  color: #fd0;
 }
 
 [role="banner"] .actions {
@@ -71,13 +70,13 @@ pre, code {
   flex-grow: 0;
 }
 [role="banner"] button {
-  padding: .3125rem .875rem;
+  padding: .5rem 1rem;
   margin: 0;
   border: 0;
   border-radius: 2px;
   background: #242424;
   color: white;
-  font-size: inherit;
+  font-size: 100%;
   font-family: inherit;
   cursor: pointer;
 }
