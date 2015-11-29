@@ -110,6 +110,7 @@ function setupEditor() {
 
   function shareProgram() {
     var code = sourceCM.getValue();
+    showSpinners();
     $.ajax({
       type: 'POST',
       url: '/p',
@@ -121,6 +122,8 @@ function setupEditor() {
       showShareScreen(url);
     }).fail(function () {
       console.error('Failed to share program.');
+    }).always(function () {
+      hideSpinners();
     });
   }
 
