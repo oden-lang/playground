@@ -3,7 +3,7 @@
  * Textual accent: #fd0;
  * Dark: #242424
  * Source: #fffafa
- * Output: #fff2d2
+ * go-output: #fff2d2
  */
 
 *,
@@ -108,7 +108,7 @@ pre, code {
 }
 
 .source textarea,
-.output textarea {
+.go-output textarea {
   padding: 0;
   width: 100%;
   border: 0;
@@ -120,7 +120,7 @@ pre, code {
 }
 
 .source,
-.output {
+.go-output {
   position: relative;
   flex-basis: 50%;
   flex-grow: 1;
@@ -131,10 +131,10 @@ pre, code {
   background: #fffafa;
 }
 
-.output {
+.go-output {
   background: #fff2d2;
 }
-.output.error {
+.go-output.error {
   background: #ffd2d2;
   color: red;
 }
@@ -142,6 +142,7 @@ pre, code {
 /* Console */
 
 .console {
+  position: relative;
   padding: .625rem;
   min-height: 8rem;
   max-height: 16rem;
@@ -174,8 +175,8 @@ pre, code {
   background: none;
 }
 
-.output .cm-s-default .CodeMirror-gutters,
-.output .cm-s-default.CodeMirror {
+.go-output .cm-s-default .CodeMirror-gutters,
+.go-output .cm-s-default.CodeMirror {
   background: none;
 }
 
@@ -198,26 +199,6 @@ pre, code {
 
 .footer .powered-by {
   font-style: italic;
-}
-
-/* Overlay */
-
-.running-overlay {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.5);
-  z-index: 10;
-  opacity: 0;
-  transition: opacity .5s ease;
-}
-.running-overlay.active {
-  opacity: 1;
 }
 
 /* Common */

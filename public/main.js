@@ -1,9 +1,11 @@
 'use strict';
 
 var $sourceTextArea = $('.editor .source textarea');
-var $output = $('.editor .output');
-var $outputTextArea = $output.find('textarea');
+var $goOutput = $('.editor .go-output');
+var $goOutputTextArea = $goOutput.find('textarea');
 var $console = $('.console');
+var $consoleOutput = $console.find('.output');
+var $spinner = $('.spinner');
 
 var sourceCM = CodeMirror.fromTextArea($sourceTextArea.get(0), {
   mode: 'clojure',
@@ -11,56 +13,52 @@ var sourceCM = CodeMirror.fromTextArea($sourceTextArea.get(0), {
   matchBrackets: true
 });
 
-var outputCM = CodeMirror.fromTextArea($outputTextArea.get(0), {
+var outputCM = CodeMirror.fromTextArea($goOutputTextArea.get(0), {
   mode: 'go',
   readOnly: true,
   title: 'Go output'
 });
 
-
 function displayError(result) {
-  $output.addClass('error');
+  $goOutput.addClass('error');
   outputCM.setValue(result.error);
-  $console.empty();
+  $consoleOutput.empty();
 }
 
 function displayEvent(event) {
-  $console.append($('<div>').text(event.Message));
+  $consoleOutput.append($('<div>').text(event.Message));
 }
 
 function displayConsoleOutput(result) {
   if (result.consoleOutput.Errors) {
-    $console.addClass('error').text(result.consoleOutput.Errors);
+    $console.addClass('error');
+    $consoleOutput.text(result.consoleOutput.Errors);
   } else {
-    $console.removeClass('error').empty();
+    $console.removeClass('error');
+    $consoleOutput.empty();
     result.consoleOutput.Events.forEach(displayEvent);
   }
 }
 
+function showSpinners() {
+  $spinner.css('display', 'flex');
+  outputCM.setValue('');
+  $consoleOutput.empty();
+}
+
+function hideSpinners() {
+  $spinner.css('display', 'none');
+}
+
 function display(result) {
-  $output.removeClass('error');
+  $goOutput.removeClass('error');
   outputCM.setValue(result.goOutput);
   displayConsoleOutput(result);
 }
 
-var $overlay = $('<div>')
-  .addClass('running-overlay')
-  .html('<div class="spinner">' +
-        '<div class="rect1"></div>' +
-        '<div class="rect2"></div>' +
-        '<div class="rect3"></div>' +
-        '<div class="rect4"></div>' +
-        '<div class="rect5"></div>' +
-        '</div>')
-  .appendTo(document.body);
-
 function compileAndRun() {
   var code = sourceCM.getValue();
-
-  $overlay.css('display', 'flex');
-  setTimeout(function () {
-    $overlay.addClass('active');
-  }, 0);
+  showSpinners();
 
   $.ajax({
     type: 'POST',
@@ -76,8 +74,7 @@ function compileAndRun() {
   }).fail(function () {
     console.error('Failed to run code.');
   }).always(function () {
-    $overlay.removeClass('active');
-    $overlay.css('display', 'none');
+    hideSpinners();
   });
 }
 
