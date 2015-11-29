@@ -18,7 +18,7 @@ const defaultProgram = `(pkg main)
 
 (define (main) (fmt.Println "Hello, World!"))`
 
-type RunRequest struct {
+type CodeRequest struct {
 	OdenSource string `json:"odenSource"`
 }
 type RunResponse struct {
@@ -26,10 +26,15 @@ type RunResponse struct {
 	GoOutput      string        `json:"goOutput"`
 	ConsoleOutput *PlayResponse `json:"consoleOutput"`
 }
+type SaveResponse struct {
+	ProgramId string `json:"programId"`
+	Path      string `json:"path"`
+}
 
 type ViewModel struct {
 	Version    string
 	OdenSource string
+	Deprecated bool
 }
 
 func main() {
@@ -52,28 +57,34 @@ func main() {
 		r.HTML(w, http.StatusOK, "index", ViewModel{
 			version,
 			defaultProgram,
+			false,
 		})
 	}).Methods("GET")
 
-	router.HandleFunc("/program/{prg}", func(w http.ResponseWriter, req *http.Request) {
+	router.HandleFunc("/p/{id}", func(w http.ResponseWriter, req *http.Request) {
 		vars := mux.Vars(req)
-		prg := vars["prg"]
-		data, err := base64.StdEncoding.DecodeString(prg)
+		id := vars["id"]
+
+		prg, err := findProgram(id)
+		fmt.Println(prg, err)
 		if err != nil {
-			fmt.Println(string(data))
-			fmt.Fprintf(os.Stderr, "Failed to decode program: %s\n", err)
-			r.HTML(w, http.StatusBadRequest, "invalid-program", nil)
+			r.HTML(w, http.StatusInternalServerError, "500", nil)
+			return
+		} else if prg == nil {
+			r.HTML(w, http.StatusNotFound, "404", nil)
 			return
 		}
+
 		r.HTML(w, http.StatusOK, "index", ViewModel{
 			version,
-			string(data),
+			*prg,
+			false,
 		})
 	}).Methods("GET")
 
 	router.HandleFunc("/compile", func(w http.ResponseWriter, req *http.Request) {
 
-		var runReq RunRequest
+		var runReq CodeRequest
 		if err := json.NewDecoder(req.Body).Decode(&runReq); err != nil {
 			http.Error(w, "Could not decode JSON", http.StatusBadRequest)
 			return
@@ -112,6 +123,44 @@ func main() {
 			consoleOutput,
 		})
 	}).Methods("POST")
+
+	router.HandleFunc("/p", func(w http.ResponseWriter, req *http.Request) {
+		var saveReq CodeRequest
+		if err := json.NewDecoder(req.Body).Decode(&saveReq); err != nil {
+			http.Error(w, "Could not decode JSON", http.StatusBadRequest)
+			return
+		}
+
+		id, err := saveProgram(saveReq.OdenSource)
+		if err != nil {
+			fmt.Println("Failed to save code:", err)
+			http.Error(w, "Could not save program", http.StatusInternalServerError)
+			return
+		}
+
+		r.JSON(w, http.StatusOK, SaveResponse{
+			id,
+			"/p/" + id,
+		})
+	}).Methods("POST")
+
+	// For backwards compatibility
+	router.HandleFunc("/program/{prg}", func(w http.ResponseWriter, req *http.Request) {
+		vars := mux.Vars(req)
+		prg := vars["prg"]
+		data, err := base64.StdEncoding.DecodeString(prg)
+		if err != nil {
+			fmt.Println(string(data))
+			fmt.Fprintf(os.Stderr, "Failed to decode program: %s\n", err)
+			r.HTML(w, http.StatusBadRequest, "invalid-program", nil)
+			return
+		}
+		r.HTML(w, http.StatusOK, "index", ViewModel{
+			version,
+			string(data),
+			true,
+		})
+	}).Methods("GET")
 
 	port := os.Getenv("PORT")
 	if port == "" {

@@ -108,13 +108,23 @@ function setupEditor() {
     }
   });
 
-  $('button.share').click(function () {
-    var prg = btoa(sourceCM.getValue());
-    var path = '/program/' + prg;
-    var url = window.location.origin + path;
-    window.history.pushState({}, 'Shared Program', path);
-    showShareScreen(url);
-  });
+  function shareProgram() {
+    var code = sourceCM.getValue();
+    $.ajax({
+      type: 'POST',
+      url: '/p',
+      data: JSON.stringify({ odenSource: code }),
+      dataType: 'json'
+    }).done(function (result) {
+      var url = window.location.origin + result.path;
+      window.history.replaceState({}, 'Shared Program', result.path);
+      showShareScreen(url);
+    }).fail(function () {
+      console.error('Failed to share program.');
+    });
+  }
+
+  $('button.share').click(shareProgram);
 }
 
 setupEditor();

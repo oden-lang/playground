@@ -103,6 +103,14 @@ button {
   flex-direction: column;
 }
 
+.warning {
+  background-color: #a11;
+  color: white;
+  padding: 1rem;
+  font-style: italic;
+  font-weight: bold;
+}
+
 /* Editor */
 
 .editor {

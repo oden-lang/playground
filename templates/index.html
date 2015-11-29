@@ -10,6 +10,12 @@
   </div>
 </div>
 <main role="main">
+{{if .Deprecated}}
+<div class="warning">
+  This program is using a deprecated URL format. Press <em>Share</em>
+  to get a new URL.
+</div>
+{{end}}
 <div class="editor">
   <div class="source">
     <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
