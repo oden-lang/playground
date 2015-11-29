@@ -43,8 +43,25 @@ function display(result) {
   displayConsoleOutput(result);
 }
 
-function compileAndRun(code) {
-  console.log(code);
+var $overlay = $('<div>')
+  .addClass('running-overlay')
+  .html('<div class="spinner">' +
+        '<div class="rect1"></div>' +
+        '<div class="rect2"></div>' +
+        '<div class="rect3"></div>' +
+        '<div class="rect4"></div>' +
+        '<div class="rect5"></div>' +
+        '</div>')
+  .appendTo(document.body);
+
+function compileAndRun() {
+  var code = sourceCM.getValue();
+
+  $overlay.css('display', 'flex');
+  setTimeout(function () {
+    $overlay.addClass('active');
+  }, 0);
+
   $.ajax({
     type: 'POST',
     url: '/compile',
@@ -59,17 +76,19 @@ function compileAndRun(code) {
   }).fail(function () {
     console.error('Failed to run code.');
   }).always(function () {
-    console.log('Done');
+    $overlay.removeClass('active');
+    $overlay.css('display', 'none');
   });
 }
 
 function setupEditor() {
-
   $(document).on('keyup', function (event) {
     if (event.ctrlKey && event.keyCode === 82) {
-      var code = sourceCM.getValue();
-      compileAndRun(code);
+      compileAndRun();
     }
+  });
+  $('button.run').click(function () {
+    compileAndRun();
   });
 }
 
