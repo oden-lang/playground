@@ -8,7 +8,9 @@ RUN curl -L https://github.com/oden-lang/oden/releases/download/0.1.11/oden-0.1.
 RUN ln -s /app/oden/bin/odenc /app/bin/odenc
 RUN ln -s /app/oden/bin/odenc /app/user/bin/odenc
 
-RUN curl -L https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz | tar -xvz -C /app
+WORKDIR /app
+RUN curl -L https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz | tar -xvz go/bin/gofmt
+
 RUN cp /app/go/bin/gofmt /app/bin/gofmt
 RUN cp /app/go/bin/gofmt /app/user/bin/gofmt
 RUN rm -r /app/go

@@ -66,6 +66,10 @@ pre, code {
   color: #37a8ff;
 }
 
+[role="banner"] .actions {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
 [role="banner"] button {
   padding: .3125rem .875rem;
   margin: 0;

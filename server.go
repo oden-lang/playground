@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -51,6 +52,22 @@ func main() {
 		r.HTML(w, http.StatusOK, "index", ViewModel{
 			version,
 			defaultProgram,
+		})
+	}).Methods("GET")
+
+	router.HandleFunc("/program/{prg}", func(w http.ResponseWriter, req *http.Request) {
+		vars := mux.Vars(req)
+		prg := vars["prg"]
+		data, err := base64.StdEncoding.DecodeString(prg)
+		if err != nil {
+			fmt.Println(string(data))
+			fmt.Fprintf(os.Stderr, "Failed to decode program: %s\n", err)
+			r.HTML(w, http.StatusBadRequest, "invalid-program", nil)
+			return
+		}
+		r.HTML(w, http.StatusOK, "index", ViewModel{
+			version,
+			string(data),
 		})
 	}).Methods("GET")
 

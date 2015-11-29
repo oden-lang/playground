@@ -87,6 +87,10 @@ function setupEditor() {
   $('button.run').click(function () {
     compileAndRun();
   });
+  $('button.share').click(function () {
+    var prg = btoa(sourceCM.getValue());
+    window.history.pushState({}, 'Shared Program', '/program/' + prg);
+  });
 }
 
 setupEditor();
