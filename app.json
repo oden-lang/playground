@@ -6,7 +6,6 @@
     "oden"
   ],
   "image": "heroku/go-gb:1.5.1",
-  "mount_dir": "src/github.com/oden-lang/playground",
   "website": "http://github.com/oden-lang/playground",
   "repository": "http://github.com/oden-lang/playground"
 }
