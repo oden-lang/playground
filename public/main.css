@@ -44,7 +44,6 @@ pre, code {
 }
 
 [role="banner"] h1 {
-  position: relative;
   margin: 0;
   font-size: 1.25rem;
   padding-left: 28px;
@@ -54,16 +53,12 @@ pre, code {
 }
 
 [role="banner"] .label {
-  position: absolute;
-  right: -1.5rem;
-  top: 0;
   flex-grow: 1;
   margin: 0 .25rem;
   font-weight: bold;
   font-size: .75rem;
   color: #fd0;
   text-transform: uppercase;
-  transform: rotate(15deg);
 }
 
 [role="banner"] button {
