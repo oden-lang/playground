@@ -8,7 +8,7 @@ var $consoleOutput = $console.find('.output');
 var $spinner = $('.spinner');
 
 var sourceCM = CodeMirror.fromTextArea($sourceTextArea.get(0), {
-  mode: 'clojure',
+  mode: 'oden',
   title: 'Oden source code',
   matchBrackets: true
 });
