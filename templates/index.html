@@ -5,6 +5,10 @@
   </a>
 
   <div class="actions">
+    <label for="show-go-output">
+      <input type="checkbox" checked="" id="show-go-output" value="">
+      Go Output
+    </label>
     <button class="share">Share</button>
     <button class="run">Run <span class="shortcut">C-r</span></button>
   </div>
@@ -20,7 +24,7 @@
   <div class="source">
     <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
   </div>
-  <div class="go-output">
+  <div class="go-output hidden">
     <textarea></textarea>
     <div class="spinner">
       <div class="rect1"></div>

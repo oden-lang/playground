@@ -61,6 +61,11 @@ button:hover {
   background: #424242;
 }
 
+label {
+  margin: 0 .5em;
+  cursor: pointer;
+}
+
 /* Header */
 
 [role="banner"] {
@@ -85,7 +90,6 @@ button:hover {
 [role="banner"] .tagline {
   display: block;
   font-weight: bold;
-  font-style: italic;
   font-size: 80%;
   color: #fd0;
 }
@@ -144,6 +148,8 @@ button:hover {
   position: relative;
   flex-basis: 50%;
   flex-grow: 1;
+
+  transition: all .1s linear;
 }
 
 .source {
@@ -157,6 +163,10 @@ button:hover {
 .go-output.error {
   background: #ffd2d2;
   color: red;
+}
+
+.hidden {
+  flex: 0 0 0;
 }
 
 /* Console */
@@ -218,7 +228,6 @@ button:hover {
 /* Footer */
 
 .footer .powered-by {
-  font-style: italic;
 }
 
 /* Share Screen */

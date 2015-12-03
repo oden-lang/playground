@@ -140,6 +140,12 @@ function setupEditor() {
   }
 
   $('button.share').click(shareProgram);
+
+  $('#show-go-output').on('change', function () {
+    var show = $(this).prop('checked');
+    $goOutput.toggleClass('hidden', !show);
+    outputCM.refresh();
+  });
 }
 
 setupEditor();
