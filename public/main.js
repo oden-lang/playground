@@ -20,9 +20,8 @@ var outputCM = CodeMirror.fromTextArea($goOutputTextArea.get(0), {
 });
 
 function displayError(result) {
-  $goOutput.addClass('error');
-  outputCM.setValue(result.error);
-  $consoleOutput.empty();
+  $console.addClass('error');
+  $consoleOutput.text(result.error);
 }
 
 function displayEvent(event) {

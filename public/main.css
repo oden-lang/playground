@@ -165,10 +165,6 @@ label {
   background: #fff2d2;
   overflow: hidden;
 }
-.go-output.error {
-  background: #ffd2d2;
-  color: red;
-}
 
 .hidden {
   flex: 0 0 0;
@@ -186,6 +182,7 @@ label {
   overflow: auto;
 }
 .console.error {
+  background: #401D1D;
   color: #ff7777;
 }
 .console .no-output {
