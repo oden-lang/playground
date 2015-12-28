@@ -25,7 +25,7 @@ func getOdenVersion() (string, error) {
 	if err != nil {
 		return "", errors.New("Failed to get odenc version: " + err.Error())
 	}
-	return strings.SplitAfter(out, " ")[0], nil
+	return strings.SplitAfter(strings.TrimSpace(out), " ")[0], nil
 }
 
 func compile(code string) (string, error) {
@@ -46,13 +46,13 @@ func compile(code string) (string, error) {
 		return "", errors.New("Failed to write Oden source file: " + err.Error())
 	}
 
-	out, err := run(odenc, "-p", tmpDir, "-o", tmpDir)
+	out, err := run(odenc, "-p"+tmpDir, "-o"+tmpDir)
 	if err != nil {
 		return "", err
 	}
 	fmt.Println("Oden output:", out)
 
-	goOutputPath := path.Join(tmpDir, "src", "main", "oden_out.go")
+	goOutputPath := path.Join(tmpDir, "src", "main.go")
 	if _, err = exec.LookPath("gofmt"); err == nil {
 		if _, err = run("gofmt", "-w", goOutputPath); err != nil {
 			return "", errors.New("Failed to gofmt Go output file: " + err.Error())

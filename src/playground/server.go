@@ -16,7 +16,7 @@ const defaultProgram = `(pkg main)
 
 (import fmt)
 
-(define (main) (fmt.Println "Hello, World!"))`
+(def (main) (fmt.Println "Hello, World!"))`
 
 type CodeRequest struct {
 	OdenSource string `json:"odenSource"`

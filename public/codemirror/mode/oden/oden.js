@@ -31,11 +31,11 @@ CodeMirror.defineMode("oden", function (options) {
     var atoms = makeKeywords("true false");
 
     var keywords = makeKeywords(
-      "define let if and or import pkg");
+      "def let if and or import pkg");
 
     var builtins = makeKeywords("+ - * / % > < >= <= == !=");
 
-    var indentKeys = makeKeywords("fn define if let");
+    var indentKeys = makeKeywords("fn def if let");
 
     var tests = {
         digit: /\d/,

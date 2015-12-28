@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"os/exec"
 	"strings"
 )
@@ -17,7 +16,6 @@ func run(prg string, params ...string) (string, error) {
 	cmd.Stderr = &errout
 	err := cmd.Run()
 
-	fmt.Println("out", out.String(), "err", errout.String())
 	if err != nil {
 		return "", errors.New(errout.String())
 	}

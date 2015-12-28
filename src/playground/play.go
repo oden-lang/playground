@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 )
 
 type Event struct {
@@ -28,11 +29,14 @@ func runGoPkg(code string, odenVersion string) (*PlayResponse, error) {
 		"version": {"2"},
 		"body":    {code},
 	}
-	req, err := http.NewRequest("POST", compileUrl, bytes.NewBufferString(form.Encode()))
+	encodedForm := form.Encode()
+	req, err := http.NewRequest("POST", compileUrl, bytes.NewBufferString(encodedForm))
 	if err != nil {
 		return nil, err
 	}
+
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Content-Length", strconv.Itoa(len([]byte(encodedForm))))
 	req.Header.Add("User-Agent", fmt.Sprintf("oden-playground/%s", odenVersion))
 
 	resp, err := client.Do(req)
