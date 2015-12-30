@@ -21,7 +21,10 @@ var outputCM = CodeMirror.fromTextArea($goOutputTextArea.get(0), {
 
 function displayError(result) {
   $console.addClass('error');
-  $consoleOutput.text(result.error);
+  var md = result.error
+    .replace(/^Error:/i, '**ERROR:**')
+    .replace(/^Warning:/i, '**WARNING:**');
+  $consoleOutput.html(marked(md));
 }
 
 function displayEvent(event) {

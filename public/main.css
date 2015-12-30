@@ -180,10 +180,21 @@ label {
   background: #242424;
   color: white;
   overflow: auto;
+  line-height: 1.5;
 }
 .console.error {
   background: #401D1D;
   color: #ff7777;
+}
+.console.error p {
+  margin: 0;
+}
+.console.error code {
+  font-weight: bold;
+  color: #ffcccc;
+}
+.console.error a {
+  color: #ffffff;
 }
 .console .no-output {
   color: #999;

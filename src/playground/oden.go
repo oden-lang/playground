@@ -46,7 +46,7 @@ func compile(code string) (string, error) {
 		return "", errors.New("Failed to write Oden source file: " + err.Error())
 	}
 
-	out, err := run(odenc, "-p"+tmpDir, "-o"+tmpDir)
+	out, err := run(odenc, "-p"+tmpDir, "-o"+tmpDir, "-M")
 	if err != nil {
 		return "", err
 	}
