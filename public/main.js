@@ -21,9 +21,12 @@ var outputCM = CodeMirror.fromTextArea($goOutputTextArea.get(0), {
 
 function displayError(result) {
   $console.addClass('error');
-  var md = result.error
-    .replace(/^Error:/i, '**ERROR:**')
-    .replace(/^Warning:/i, '**WARNING:**');
+  var md = result.error.split('\n').map(function (line) {
+    return line
+      .replace(/^Error:(.?)/i, '<span class="heading heading-error">Error:</span>$1')
+      .replace(/^Warning:(.?)/i, '<span class="heading heading-warning">Warning:</span>$1')
+      .replace (/^(For more information see.*)/i, '$1\n\n');
+  }).join('\n');
   $consoleOutput.html(marked(md));
 }
 
@@ -35,10 +38,15 @@ function displayConsoleOutput(result) {
   if (result.consoleOutput.Errors) {
     $console.addClass('error');
     $consoleOutput.text(result.consoleOutput.Errors);
-  } else {
+  } else if (result.consoleOutput.Events) {
     $console.removeClass('error');
     $consoleOutput.empty();
     result.consoleOutput.Events.forEach(displayEvent);
+  } else {
+    $console.removeClass('error');
+    $consoleOutput.empty();
+    $consoleOutput.append(
+      $('<span>').addClass('no-output').text('No output.'));
   }
 }
 
@@ -81,8 +89,9 @@ function compileAndRun() {
 }
 
 function setupEditor() {
-  $(document).on('keyup', function (event) {
+  $(document).on('keydown', function (event) {
     if (event.ctrlKey && event.keyCode === 82) {
+      event.preventDefault();
       compileAndRun();
     }
   });

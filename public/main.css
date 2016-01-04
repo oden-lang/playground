@@ -182,10 +182,10 @@ label {
   overflow: auto;
   line-height: 1.5;
 }
-.console.error {
-  background: #401D1D;
-  color: #ff7777;
-}
+/*.console.error {*/
+  /*background: #401D1D;*/
+  /*color: #ff7777;*/
+/*}*/
 .console.error p {
   margin: 0;
 }
@@ -200,6 +200,16 @@ label {
   color: #999;
   font-family: 'Helvetica Neue', sans-serif;
   font-style: italic;
+}
+.console .heading {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.console .heading-error {
+  color: #ff7777;
+}
+.console .heading-warning {
+  color: #ffff77;
 }
 
 /* CodeMirror */
