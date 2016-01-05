@@ -14,9 +14,16 @@ import (
 
 const defaultProgram = `(pkg main)
 
-(import fmt)
+(def (fib n)
+  (if (== n 1)
+    0
+    (if (== n 2)
+     1
+     (+ (fib (- n 1)) (fib (- n 2))))))
 
-(def (main) (fmt.Println "Hello, World!"))`
+(def result (fib 10))
+
+(def (main) unit)`
 
 type CodeRequest struct {
 	OdenSource string `json:"odenSource"`
@@ -38,7 +45,6 @@ type ViewModel struct {
 }
 
 func main() {
-	findOdenc()
 	version, err := getOdenVersion()
 	if err != nil {
 		fmt.Fprint(os.Stderr, err)

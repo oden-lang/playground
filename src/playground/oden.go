@@ -5,18 +5,27 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/exec"
 	"path"
 	"strings"
 )
 
 var odenc string
 
-func findOdenc() {
+func init() {
 	odenc = os.Getenv("ODENC")
 	if odenc == "" {
 		fmt.Println("Using odenc from $PATH")
 		odenc = "odenc"
+	}
+	goRoot := os.Getenv("GOROOT")
+
+	if goRoot == "" {
+		fmt.Println("Setting GOROOT to /app/user/go for Heroku compatibility")
+		os.Setenv("GOROOT", "/app/user/go")
+
+		fmt.Println("Including /app/user/go/bin in PATH")
+		path := os.Getenv("PATH")
+		os.Setenv("PATH", path+":/app/user/go/bin")
 	}
 }
 
@@ -53,10 +62,8 @@ func compile(code string) (string, error) {
 	fmt.Println("Oden output:", out)
 
 	goOutputPath := path.Join(tmpDir, "src", "main.go")
-	if _, err = exec.LookPath("gofmt"); err == nil {
-		if _, err = run("gofmt", "-w", goOutputPath); err != nil {
-			return "", errors.New("Failed to gofmt Go output file: " + err.Error())
-		}
+	if _, err = run("gofmt", "-w", goOutputPath); err != nil {
+		return "", errors.New("Failed to gofmt Go output file: " + err.Error())
 	}
 	goCode, err := ioutil.ReadFile(goOutputPath)
 	if err != nil {
