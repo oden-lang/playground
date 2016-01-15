@@ -120,6 +120,7 @@ func main() {
 		if consoleOutput.Errors != "" {
 			fmt.Println("Run with errors:\n", consoleOutput.Errors)
 		} else {
+			go mailer.SendCodeSuccess(runReq.OdenSource, goCode, consoleOutput)
 			fmt.Println("Run:\n", goCode)
 		}
 
