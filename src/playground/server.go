@@ -99,6 +99,7 @@ func main() {
 		goCode, err := compile(runReq.OdenSource)
 		if err != nil {
 			fmt.Println("Failed to compile due to", err, ":\n", runReq.OdenSource)
+			go mailer.SendOdenCompilationError(runReq.OdenSource, err.Error())
 			r.JSON(w, http.StatusOK, RunResponse{
 				err.Error(),
 				"",
@@ -110,6 +111,7 @@ func main() {
 		consoleOutput, err := runGoPkg(goCode, version)
 		if err != nil {
 			fmt.Println("Failed to run due to", err, ":\n", goCode)
+			go mailer.SendGoRunError(runReq.OdenSource, goCode, err.Error())
 			r.JSON(w, http.StatusOK, RunResponse{
 				err.Error(),
 				"",
