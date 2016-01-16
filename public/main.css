@@ -47,6 +47,7 @@ button {
   color: white;
   font-size: 100%;
   font-family: inherit;
+  font-weight: normal;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -307,10 +308,13 @@ label {
   font-family: 'Helvetica Neue', sans-serif;
   color: white;
 }
+main > article  {
+  padding: 1rem;
+  font-family: 'Helvetica Neue', sans-serif;
+}
 [role="banner"] a,
 .footer a {
   color: #fff2d2;
-  font-weight: bold;
 }
 
 @media screen and (min-width: 30rem) {

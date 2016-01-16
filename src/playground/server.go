@@ -171,6 +171,14 @@ func main() {
 		})
 	}).Methods("GET")
 
+	router.HandleFunc("/about", func(w http.ResponseWriter, req *http.Request) {
+		r.HTML(w, http.StatusOK, "about", ViewModel{
+			version,
+			"",
+			true,
+		})
+	}).Methods("GET")
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
