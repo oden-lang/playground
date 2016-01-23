@@ -159,7 +159,7 @@ label {
 
 .source {
   display: flex;
-  background: #fffafa;
+  background: white;
 }
 
 .go-output {
