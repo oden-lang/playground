@@ -10,6 +10,7 @@ var $spinner = $('.spinner');
 var sourceCM = CodeMirror.fromTextArea($sourceTextArea.get(0), {
   mode: 'oden',
   title: 'Oden source code',
+  theme: 'oden-playground',
   matchBrackets: true
 });
 

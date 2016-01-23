@@ -1,0 +1,52 @@
+.cm-s-oden-playground .cm-quote { color: #090; }
+.cm-s-oden-playground .cm-negative { color: #d44; }
+.cm-s-oden-playground .cm-positive { color: #292; }
+.cm-s-oden-playground .cm-header, .cm-strong { font-weight: bold; }
+.cm-s-oden-playground .cm-em { font-style: italic; }
+.cm-s-oden-playground .cm-link { text-decoration: underline; }
+.cm-s-oden-playground .cm-strikethrough { text-decoration: line-through; }
+.cm-s-oden-playground .cm-header { color: #00f; font-weight: bold; }
+
+.cm-s-oden-playground .cm-atom { color: #219; }
+.cm-s-oden-playground .cm-number { color: #1b8870; }
+.cm-s-oden-playground .cm-tvar { color: #006ec3; }
+.cm-s-oden-playground .cm-attribute { color: #00c; }
+.cm-s-oden-playground .cm-bracket { color: #997; }
+.cm-s-oden-playground .cm-comment { color: #777; font-style: italic; }
+.cm-s-oden-playground .cm-def { color: #00f; }
+.cm-s-oden-playground .cm-em { font-style: italic; }
+.cm-s-oden-playground .cm-error { color: #f00; }
+.cm-s-oden-playground .cm-hr { color: #999; }
+.cm-s-oden-playground .cm-invalidchar { color: #f00; }
+.cm-s-oden-playground .cm-keyword { font-weight: bold; }
+.cm-s-oden-playground .cm-link { color: #00c; text-decoration: underline; }
+.cm-s-oden-playground .cm-meta { color: #555; }
+.cm-s-oden-playground .cm-negative { color: #d44; }
+.cm-s-oden-playground .cm-positive { color: #292; }
+.cm-s-oden-playground .cm-qualifier { color: #555; }
+.cm-s-oden-playground .cm-strikethrough { text-decoration: line-through; }
+.cm-s-oden-playground .cm-string { color: #3c5d00; }
+.cm-s-oden-playground .cm-string-2 { color: #f50; }
+.cm-s-oden-playground .cm-strong { font-weight: bold; }
+.cm-s-oden-playground .cm-tag { color: #170; }
+.cm-s-oden-playground .cm-variable { color: #222; }
+.cm-s-oden-playground .cm-variable-2 { color: #05a; }
+.cm-s-oden-playground .cm-variable-3 { color: #085; }
+
+.cm-s-oden-playground .cm-invalidchar { color: #f00; }
+
+/* oden-playground */
+.cm-s-oden-playground .cm-booleanConsts,
+.cm-s-oden-playground .cm-otherConsts,
+.cm-s-oden-playground .cm-verdictConsts { color: #006400; }
+.cm-s-oden-playground .cm-configOps,
+.cm-s-oden-playground .cm-functionOps,
+.cm-s-oden-playground .cm-portOps,
+.cm-s-oden-playground .cm-sutOps,
+.cm-s-oden-playground .cm-timerOps,
+.cm-s-oden-playground .cm-verdictOps { color: #0000FF; }
+.cm-s-oden-playground .cm-preprocessor,
+.cm-s-oden-playground .cm-templateMatch,
+.cm-s-oden-playground .cm-oden-playground3Macros { color: #27408B; }
+.cm-s-oden-playground .cm-types { color: #A52A2A; font-weight:bold; }
+.cm-s-oden-playground .cm-visibilityModifiers { font-weight:bold; }

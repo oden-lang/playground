@@ -16,6 +16,7 @@ const defaultProgram = `(pkg main)
 
 (import fmt)
 
+(: fib (int -> int))
 (def (fib n)
   (if (== n 1)
     0
@@ -23,6 +24,7 @@ const defaultProgram = `(pkg main)
      1
      (+ (fib (- n 1)) (fib (- n 2))))))
 
+(: main (-> unit))
 (def (main) (fmt.Println (fib 10)))`
 
 type CodeRequest struct {

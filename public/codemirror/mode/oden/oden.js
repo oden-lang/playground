@@ -2,8 +2,8 @@
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 /**
- * Author: Hans Engel
- * Branched from CodeMirror's Scheme mode (by Koh Zi Han, based on implementation by Koh Zi Chun)
+ * Author: Oskar Wickström
+ * Branched from CodeMirror's Clojure mode (by Hans Engel)
  */
 
 (function(mod) {
@@ -18,7 +18,7 @@
 
 CodeMirror.defineMode("oden", function (options) {
     var BUILTIN = "builtin", COMMENT = "comment", STRING = "string", CHARACTER = "string-2",
-        ATOM = "atom", NUMBER = "number", BRACKET = "bracket", KEYWORD = "keyword", VAR = "variable";
+        ATOM = "atom", TVAR = "tvar", NUMBER = "number", BRACKET = "bracket", KEYWORD = "keyword", VAR = "variable";
     var INDENT_WORD_SKIP = options.indentUnit || 2;
     var NORMAL_INDENT_UNIT = options.indentUnit || 2;
 
@@ -31,7 +31,7 @@ CodeMirror.defineMode("oden", function (options) {
     var atoms = makeKeywords("true false");
 
     var keywords = makeKeywords(
-      "def let if and or import pkg");
+      "def let if and or import pkg forall : ->");
 
     var builtins = makeKeywords("+ - * / % > < >= <= == !=");
 
@@ -193,9 +193,9 @@ CodeMirror.defineMode("oden", function (options) {
                         if (state.indentStack != null && state.indentStack.type == (ch == ")" ? "(" : (ch == "]" ? "[" :"{"))) {
                             popStack(state);
                         }
-                    } else if ( ch == ":" ) {
+                    } else if ( ch == "#" ) {
                         stream.eatWhile(tests.symbol);
-                        return ATOM;
+                        return TVAR;
                     } else {
                         stream.eatWhile(tests.symbol);
 
