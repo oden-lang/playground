@@ -143,9 +143,11 @@ label {
   border: 0;
   background: none;
   outline: 0;
-  font-size: 1rem;
-  font-family: inherit;
   resize: none;
+  font-family: 'Monaco', 'Consolas', monospace;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 14px;
 }
 
 .source,
@@ -219,15 +221,13 @@ label {
   position: static;
   width: 100%;
   height: 100%;
-  padding: .5rem;
+  padding: 10px;
   font-family: 'Monaco', 'Consolas', monospace;
   line-height: 1.6;
-  font-size: 0.9rem;
 }
 
 @media screen and (min-width: 30rem) {
   .editor .CodeMirror {
-    font-size: 1rem;
   }
 }
 
