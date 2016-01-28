@@ -1,4 +1,4 @@
-FROM heroku/go-gb:1.5.1
+FROM heroku/go-gb:1.6
 
 RUN mkdir -p /app/bin
 RUN mkdir -p /app/user/bin
