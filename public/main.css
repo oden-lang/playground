@@ -36,6 +36,15 @@ pre, code {
   font-size: inherit;
 }
 
+label {
+  margin: 0 .5em;
+  cursor: pointer;
+}
+
+/**
+ * Buttons
+ */
+
 .button,
 button {
   display: inline-block;
@@ -62,12 +71,24 @@ button:hover {
   background: #424242;
 }
 
-label {
-  margin: 0 .5em;
-  cursor: pointer;
+/* SVG inside a button */
+button svg,
+.button svg {
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: middle;
 }
 
-/* Header */
+/* Text inside button */
+button span,
+.button span {
+  display: none;
+  vertical-align: middle;
+}
+
+/**
+ * Header
+ */
 
 [role="banner"] {
   display: flex;
@@ -257,12 +278,9 @@ label {
   color: #f55;
 }
 
-/* Footer */
-
-.footer .powered-by {
-}
-
-/* Share Screen */
+/**
+ * Share Screen
+ */
 
 .share-screen {
   position: absolute;
@@ -305,7 +323,9 @@ label {
   background-color: #a11;
 }
 
-/* Common */
+/**
+ * Common
+ */
 
 [role="banner"],
 .footer {
@@ -343,5 +363,9 @@ main > article  {
   }
   .editor {
     flex-direction: row;
+  }
+  button span,
+  .button span {
+    display: inline-block;
   }
 }
