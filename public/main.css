@@ -44,7 +44,6 @@ label {
 /**
  * Buttons
  */
-
 .button,
 button {
   display: inline-block;
@@ -89,52 +88,46 @@ button span,
 /**
  * Header
  */
-
 [role="banner"] {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 [role="banner"] .home {
-  padding-left: 42px;
-  background-image: url(/icon.png);
-  background-size: 32px;
-  background-repeat: no-repeat;
-  background-position: left center;
+  padding-left: 3.25rem;
+  background: url(/logo-with-name.svg) no-repeat left center;
+  background-size: 3rem;
   text-decoration: none;
-  text-align: center;
 }
+
 [role="banner"] .home h1 {
   margin: 0;
   font-size: 1.5rem;
 }
-[role="banner"] .tagline {
-  display: block;
-  font-weight: bold;
-  font-size: 80%;
-  color: #fd0;
-}
 
-[role="banner"] .actions {
-  flex-shrink: 0;
-  flex-grow: 0;
-  flex-basis: 100%;
-  margin-top: 1.5rem;
-  text-align: center;
+[role="banner"] .tagline {
+  font-size: .8125rem;
+  font-weight: bold;
+  color: #206396;
 }
 
 [role="banner"] .shortcut {
   font-family: monospace;
+  background: #fd0;
+  color: #242424;
   font-weight: bold;
-  color: #fd0;
-  margin-left: .25em;
-  font-size: 125%;
+  padding: 0 4px;
+  border-radius: 3px;
 }
 
-/* Main */
+[role="banner"] .actions {
+  flex-shrink: 0;
+}
 
+/**
+ * Main
+ */
 [role="main"] {
   display: flex;
   flex-grow: 1;
@@ -149,14 +142,44 @@ button span,
   font-weight: bold;
 }
 
-/* Editor */
+/**
+ * Footer
+ */
+[role="footer"] {
+  display: flex;
+  justify-content: space-between;
+}
 
+[role="footer"] .about {
+  flex-shrink: 0;
+}
+
+/**
+ * Editor
+ */
 .editor {
+  position: relative;
   display: flex;
   flex-grow: 1;
   flex-direction: column;
 }
 
+.editor .show-go-output {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  z-index: 100;
+  background: #242424;
+  color: white;
+  padding: .5rem .75rem;
+  border-radius: 10px 0 0 0;
+}
+
+/**
+ * Source
+ */
 .source textarea,
 .go-output textarea {
   padding: 0;
@@ -194,8 +217,9 @@ button span,
   flex: 0 0 0;
 }
 
-/* Console */
-
+/**
+ * Console
+ */
 .console {
   position: relative;
   padding: .625rem;
@@ -206,10 +230,6 @@ button span,
   overflow: auto;
   line-height: 1.5;
 }
-/*.console.error {*/
-  /*background: #401D1D;*/
-  /*color: #ff7777;*/
-/*}*/
 .console.error p {
   margin: 0;
 }
@@ -236,8 +256,9 @@ button span,
   color: #ffff77;
 }
 
-/* CodeMirror */
-
+/**
+ * CodeMirror
+ */
 .editor .CodeMirror {
   position: static;
   width: 100%;
@@ -251,7 +272,6 @@ button span,
   .editor .CodeMirror {
   }
 }
-
 
 .source .cm-s-default .CodeMirror-gutters,
 .source .cm-s-default.CodeMirror {
@@ -281,7 +301,6 @@ button span,
 /**
  * Share Screen
  */
-
 .share-screen {
   position: absolute;
   z-index: 10;
@@ -326,11 +345,9 @@ button span,
 /**
  * Common
  */
-
 [role="banner"],
-.footer {
+[role="footer"] {
   display: flex;
-  flex-shrink: 0;
   padding: .625rem;
   background: #37a8ff;
   font-family: 'Helvetica Neue', sans-serif;
@@ -341,29 +358,35 @@ main > article  {
   font-family: 'Helvetica Neue', sans-serif;
 }
 [role="banner"] a,
-.footer a {
+[role="footer"] a {
   color: #fff2d2;
 }
 
-@media screen and (min-width: 30rem) {
-  [role="banner"] h1 {
-    font-size: 1.5rem;
-  }
-}
-
 @media screen and (min-width: 48rem) {
+  /**
+   * Header
+   */
   [role="banner"]  {
     flex-wrap: none;
     justify-content: space-between;
   }
+
   [role="banner"] .actions {
     flex-basis: auto;
     margin-top: 0;
     text-align: left;
   }
+
+  /**
+   * Editor
+   */
   .editor {
     flex-direction: row;
   }
+
+  /**
+   * Buttons
+   */
   button span,
   .button span {
     display: inline-block;
