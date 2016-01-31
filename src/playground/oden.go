@@ -27,6 +27,10 @@ func init() {
 		path := os.Getenv("PATH")
 		os.Setenv("PATH", path+":/app/user/go/bin")
 	}
+
+	os.Setenv("LC_ALL", "en_US.UTF-8")
+	os.Setenv("LANG", "en_US.UTF-8")
+	os.Setenv("LANGUAGE", "en_US.UTF-8")
 }
 
 func getOdenVersion() (string, error) {
