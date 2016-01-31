@@ -11,7 +11,10 @@ var sourceCM = CodeMirror.fromTextArea($sourceTextArea.get(0), {
   mode: 'oden',
   title: 'Oden source code',
   theme: 'oden-playground',
-  matchBrackets: true
+  matchBrackets: true,
+  indentUnit: 2,
+  tabSize: 2,
+  indentWithTabs: false
 });
 
 var outputCM = CodeMirror.fromTextArea($goOutputTextArea.get(0), {

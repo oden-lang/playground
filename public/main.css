@@ -290,7 +290,7 @@ button span,
 }
 
 .source div.CodeMirror span.CodeMirror-matchingbracket {
-  color: #997;
+  color: inherit;
   background: #fd0;
 }
 .source div.CodeMirror span.CodeMirror-nonmatchingbracket {

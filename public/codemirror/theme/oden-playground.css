@@ -18,7 +18,8 @@
 .cm-s-oden-playground .cm-error { color: #f00; }
 .cm-s-oden-playground .cm-hr { color: #999; }
 .cm-s-oden-playground .cm-invalidchar { color: #f00; }
-.cm-s-oden-playground .cm-keyword { font-weight: bold; }
+.cm-s-oden-playground .cm-keyword { color: #075088; }
+.cm-s-oden-playground .cm-operator { color: #8400a3; }
 .cm-s-oden-playground .cm-link { color: #00c; text-decoration: underline; }
 .cm-s-oden-playground .cm-meta { color: #555; }
 .cm-s-oden-playground .cm-negative { color: #d44; }

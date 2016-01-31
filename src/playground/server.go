@@ -12,20 +12,19 @@ import (
 	"github.com/unrolled/render"
 )
 
-const defaultProgram = `(pkg main)
+const defaultProgram = `package main
 
-(import fmt)
+import fmt
 
-(: fib (int -> int))
-(def (fib n)
-  (if (== n 1)
-    0
-    (if (== n 2)
-     1
-     (+ (fib (- n 1)) (fib (- n 2))))))
+fib :: int -> int
+fib n -> if n == 1 then 0 else {
+  if n == 2 then 1 else {
+    fib(n - 1) + fib(n - 2)
+  }
+}
 
-(: main (-> unit))
-(def (main) (fmt.Println (fib 10)))`
+main :: -> {}
+main -> fmt.Println(fib(10))`
 
 type CodeRequest struct {
 	OdenSource string `json:"odenSource"`

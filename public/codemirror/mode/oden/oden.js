@@ -1,11 +1,6 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
-/**
- * Author: Oskar Wickström
- * Branched from CodeMirror's Clojure mode (by Hans Engel)
- */
-
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
     mod(require("../../lib/codemirror"));
@@ -16,214 +11,175 @@
 })(function(CodeMirror) {
 "use strict";
 
-CodeMirror.defineMode("oden", function (options) {
-    var BUILTIN = "builtin", COMMENT = "comment", STRING = "string", CHARACTER = "string-2",
-        ATOM = "atom", TVAR = "tvar", NUMBER = "number", BRACKET = "bracket", KEYWORD = "keyword", VAR = "variable";
-    var INDENT_WORD_SKIP = options.indentUnit || 2;
-    var NORMAL_INDENT_UNIT = options.indentUnit || 2;
+CodeMirror.defineMode("oden", function(config) {
+  var indentUnit = config.indentUnit;
 
-    function makeKeywords(str) {
-        var obj = {}, words = str.split(" ");
-        for (var i = 0; i < words.length; ++i) obj[words[i]] = true;
-        return obj;
+  var keywords = {
+    "break":true, "case":true, "chan":true, "const":true, "continue":true,
+    "default":true, "defer":true, "else":true, "fallthrough":true, "for":true,
+    "func":true, "go":true, "goto":true, "if":true, "else":true, "then": true,
+    "import":true, "interface":true, "map":true, "package":true, "range":true,
+    "return":true, "select":true, "struct":true, "switch":true, "type":true,
+    "var":true, "bool":true, "byte":true, "complex64":true, "complex128":true,
+    "float32":true, "float64":true, "int8":true, "int16":true, "int32":true,
+    "int64":true, "string":true, "uint8":true, "uint16":true, "uint32":true,
+    "uint64":true, "int":true, "uint":true, "uintptr":true, "->":true,
+    "::":true, "fn": true, "let":true, "in":true
+  };
+
+  var atoms = { "true":true, "false":true, "iota":true, "nil":true,
+    "append":true, "cap":true, "close":true, "complex":true, "copy":true,
+    "imag":true, "len":true, "make":true, "new":true, "panic":true,
+    "print":true, "println":true, "real":true, "recover":true
+  };
+
+  var isOperatorChar = /[+\-*&^%:=<>!|\/]/;
+
+  var curPunc;
+
+  function tokenBase(stream, state) {
+    var ch = stream.next();
+    if (ch == '"' || ch == "'" || ch == "`") {
+      state.tokenize = tokenString(ch);
+      return state.tokenize(stream, state);
     }
+    if (/[\d\.]/.test(ch)) {
+      if (ch == ".") {
+        stream.match(/^[0-9]+([eE][\-+]?[0-9]+)?/);
+      } else if (ch == "0") {
+        stream.match(/^[xX][0-9a-fA-F]+/) || stream.match(/^0[0-7]+/);
+      } else {
+        stream.match(/^[0-9]*\.?[0-9]*([eE][\-+]?[0-9]+)?/);
+      }
+      return "number";
+    }
+    if (/[\[\]{}\(\),;\:\.]/.test(ch)) {
+      curPunc = ch;
+      return null;
+    }
+    if (ch == "/") {
+      if (stream.eat("*")) {
+        state.tokenize = tokenComment;
+        return tokenComment(stream, state);
+      }
+      if (stream.eat("/")) {
+        stream.skipToEnd();
+        return "comment";
+      }
+    }
+    if (isOperatorChar.test(ch)) {
+      stream.eatWhile(isOperatorChar);
+      return "operator";
+    }
+    stream.eatWhile(/[\w\$_\xa1-\uffff]/);
+    var cur = stream.current();
+    if (keywords.propertyIsEnumerable(cur)) {
+      if (cur == "case" || cur == "default") curPunc = "case";
+      return "keyword";
+    }
+    if (atoms.propertyIsEnumerable(cur)) return "atom";
+    return "variable";
+  }
 
-    var atoms = makeKeywords("true false");
-
-    var keywords = makeKeywords(
-      "def let if and or import pkg forall : ->");
-
-    var builtins = makeKeywords("+ - * / % > < >= <= == !=");
-
-    var indentKeys = makeKeywords("fn def if let");
-
-    var tests = {
-        digit: /\d/,
-        digit_or_colon: /[\d:]/,
-        hex: /[0-9a-f]/i,
-        sign: /[+-]/,
-        exponent: /e/i,
-        keyword_char: /[^\s\(\[\;\)\]]/,
-        symbol: /[\w*+!\-\._?:<>\/\xa1-\uffff]/
+  function tokenString(quote) {
+    return function(stream, state) {
+      var escaped = false, next, end = false;
+      while ((next = stream.next()) != null) {
+        if (next == quote && !escaped) {end = true; break;}
+        escaped = !escaped && quote != "`" && next == "\\";
+      }
+      if (end || !(escaped || quote == "`"))
+        state.tokenize = tokenBase;
+      return "string";
     };
+  }
 
-    function stateStack(indent, type, prev) { // represents a state stack object
-        this.indent = indent;
-        this.type = type;
-        this.prev = prev;
+  function tokenComment(stream, state) {
+    var maybeEnd = false, ch;
+    while (ch = stream.next()) {
+      if (ch == "/" && maybeEnd) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      maybeEnd = (ch == "*");
     }
+    return "comment";
+  }
 
-    function pushStack(state, indent, type) {
-        state.indentStack = new stateStack(indent, type, state.indentStack);
-    }
+  function Context(indented, column, type, align, prev) {
+    this.indented = indented;
+    this.column = column;
+    this.type = type;
+    this.align = align;
+    this.prev = prev;
+  }
+  function pushContext(state, col, type) {
+    return state.context = new Context(state.indented, col, type, null, state.context);
+  }
+  function popContext(state) {
+    if (!state.context.prev) return;
+    var t = state.context.type;
+    if (t == ")" || t == "]" || t == "}")
+      state.indented = state.context.indented;
+    return state.context = state.context.prev;
+  }
 
-    function popStack(state) {
-        state.indentStack = state.indentStack.prev;
-    }
+  // Interface
 
-    function isNumber(ch, stream){
-        // hex
-        if ( ch === '0' && stream.eat(/x/i) ) {
-            stream.eatWhile(tests.hex);
-            return true;
-        }
+  return {
+    startState: function(basecolumn) {
+      return {
+        tokenize: null,
+        context: new Context((basecolumn || 0) - indentUnit, 0, "top", false),
+        indented: 0,
+        startOfLine: true
+      };
+    },
 
-        // leading sign
-        if ( ( ch == '+' || ch == '-' ) && ( tests.digit.test(stream.peek()) ) ) {
-          stream.eat(tests.sign);
-          ch = stream.next();
-        }
+    token: function(stream, state) {
+      var ctx = state.context;
+      if (stream.sol()) {
+        if (ctx.align == null) ctx.align = false;
+        state.indented = stream.indentation();
+        state.startOfLine = true;
+        if (ctx.type == "case") ctx.type = "}";
+      }
+      if (stream.eatSpace()) return null;
+      curPunc = null;
+      var style = (state.tokenize || tokenBase)(stream, state);
+      if (style == "comment") return style;
+      if (ctx.align == null) ctx.align = true;
 
-        if ( tests.digit.test(ch) ) {
-            stream.eat(ch);
-            stream.eatWhile(tests.digit);
+      if (curPunc == "{") pushContext(state, stream.column(), "}");
+      else if (curPunc == "[") pushContext(state, stream.column(), "]");
+      else if (curPunc == "(") pushContext(state, stream.column(), ")");
+      else if (curPunc == "case") ctx.type = "case";
+      else if (curPunc == "}" && ctx.type == "}") ctx = popContext(state);
+      else if (curPunc == ctx.type) popContext(state);
+      state.startOfLine = false;
+      return style;
+    },
 
-            if ( '.' == stream.peek() ) {
-                stream.eat('.');
-                stream.eatWhile(tests.digit);
-            }
+    indent: function(state, textAfter) {
+      if (state.tokenize != tokenBase && state.tokenize != null) return 0;
+      var ctx = state.context, firstChar = textAfter && textAfter.charAt(0);
+      if (ctx.type == "case" && /^(?:case|default)\b/.test(textAfter)) {
+        state.context.type = "}";
+        return ctx.indented;
+      }
+      var closing = firstChar == ctx.type;
+      if (ctx.align) return ctx.column + (closing ? 0 : 1);
+      else return ctx.indented + (closing ? 0 : indentUnit);
+    },
 
-            if ( stream.eat(tests.exponent) ) {
-                stream.eat(tests.sign);
-                stream.eatWhile(tests.digit);
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    // Eat character that starts after backslash \
-    function eatCharacter(stream) {
-        var first = stream.next();
-        // Read special literals: backspace, newline, space, return.
-        // Just read all lowercase letters.
-        if (first && first.match(/[a-z]/) && stream.match(/[a-z]+/, true)) {
-            return;
-        }
-        // Read unicode character: \u1000 \uA0a1
-        if (first === "u") {
-            stream.match(/[0-9a-z]{4}/i, true);
-        }
-    }
-
-    return {
-        startState: function () {
-            return {
-                indentStack: null,
-                indentation: 0,
-                mode: false
-            };
-        },
-
-        token: function (stream, state) {
-            if (state.indentStack == null && stream.sol()) {
-                // update indentation, but only if indentStack is empty
-                state.indentation = stream.indentation();
-            }
-
-            // skip spaces
-            if (stream.eatSpace()) {
-                return null;
-            }
-            var returnType = null;
-
-            switch(state.mode){
-                case "string": // multi-line string parsing mode
-                    var next, escaped = false;
-                    while ((next = stream.next()) != null) {
-                        if (next == "\"" && !escaped) {
-
-                            state.mode = false;
-                            break;
-                        }
-                        escaped = !escaped && next == "\\";
-                    }
-                    returnType = STRING; // continue on in string mode
-                    break;
-                default: // default parsing mode
-                    var ch = stream.next();
-
-                    if (ch == "\"") {
-                        state.mode = "string";
-                        returnType = STRING;
-                    } else if (ch == "\\") {
-                        eatCharacter(stream);
-                        returnType = CHARACTER;
-                    } else if (ch == "'" && !( tests.digit_or_colon.test(stream.peek()) )) {
-                        returnType = ATOM;
-                    } else if (ch == ";") { // comment
-                        stream.skipToEnd(); // rest of the line is a comment
-                        returnType = COMMENT;
-                    } else if (isNumber(ch,stream)){
-                        returnType = NUMBER;
-                    } else if (ch == "(" || ch == "[" || ch == "{" ) {
-                        var keyWord = '', indentTemp = stream.column(), letter;
-                        /**
-                        Either
-                        (indent-word ..
-                        (non-indent-word ..
-                        (;something else, bracket, etc.
-                        */
-
-                        if (ch == "(") while ((letter = stream.eat(tests.keyword_char)) != null) {
-                            keyWord += letter;
-                        }
-
-                        if (keyWord.length > 0 && (indentKeys.propertyIsEnumerable(keyWord) ||
-                                                   /^(?:def|with)/.test(keyWord))) { // indent-word
-                            pushStack(state, indentTemp + INDENT_WORD_SKIP, ch);
-                        } else { // non-indent word
-                            // we continue eating the spaces
-                            stream.eatSpace();
-                            if (stream.eol() || stream.peek() == ";") {
-                                // nothing significant after
-                                // we restart indentation the user defined spaces after
-                                pushStack(state, indentTemp + NORMAL_INDENT_UNIT, ch);
-                            } else {
-                                pushStack(state, indentTemp + stream.current().length, ch); // else we match
-                            }
-                        }
-                        stream.backUp(stream.current().length - 1); // undo all the eating
-
-                        returnType = BRACKET;
-                    } else if (ch == ")" || ch == "]" || ch == "}") {
-                        returnType = BRACKET;
-                        if (state.indentStack != null && state.indentStack.type == (ch == ")" ? "(" : (ch == "]" ? "[" :"{"))) {
-                            popStack(state);
-                        }
-                    } else if ( ch == "#" ) {
-                        stream.eatWhile(tests.symbol);
-                        return TVAR;
-                    } else {
-                        stream.eatWhile(tests.symbol);
-
-                        if (keywords && keywords.propertyIsEnumerable(stream.current())) {
-                            returnType = KEYWORD;
-                        } else if (builtins && builtins.propertyIsEnumerable(stream.current())) {
-                            returnType = BUILTIN;
-                        } else if (atoms && atoms.propertyIsEnumerable(stream.current())) {
-                            returnType = ATOM;
-                        } else {
-                          returnType = VAR;
-                        }
-                    }
-            }
-
-            return returnType;
-        },
-
-        indent: function (state) {
-            if (state.indentStack == null) return state.indentation;
-            return state.indentStack.indent;
-        },
-
-        closeBrackets: {pairs: "()[]{}\"\""},
-        lineComment: ";;"
-    };
+    electricChars: "{}):",
+    fold: "brace",
+    blockCommentStart: "/*",
+    blockCommentEnd: "*/",
+    lineComment: "//"
+  };
 });
 
-CodeMirror.defineMIME("text/x-oden", "oden");
+CodeMirror.defineMIME("text/x-go", "go");
 
 });
