@@ -36,6 +36,22 @@ pre, code {
   font-size: inherit;
 }
 
+label {
+  margin: 0 .5em;
+  cursor: pointer;
+}
+
+th, td {
+  text-align: left;
+}
+th:not(:first-child),
+td:not(:first-child) {
+  padding: .25rem .5rem;
+}
+
+/**
+ * Buttons
+ */
 .button,
 button {
   display: inline-block;
@@ -62,58 +78,55 @@ button:hover {
   background: #424242;
 }
 
-label {
-  margin: 0 .5em;
-  cursor: pointer;
+/* SVG inside a button */
+button svg,
+.button svg {
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: middle;
 }
 
-/* Header */
+/* Text inside button */
+button span,
+.button span {
+  display: none;
+  vertical-align: middle;
+}
 
+/**
+ * Header
+ */
 [role="banner"] {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 [role="banner"] .home {
-  padding-left: 42px;
-  background-image: url(/icon.png);
-  background-size: 32px;
-  background-repeat: no-repeat;
-  background-position: left center;
+  padding-left: 3.25rem;
+  background: url(/logo-with-name.svg) no-repeat left center;
+  background-size: 3rem;
   text-decoration: none;
-  text-align: center;
 }
+
 [role="banner"] .home h1 {
   margin: 0;
   font-size: 1.5rem;
 }
+
 [role="banner"] .tagline {
-  display: block;
+  font-size: .8125rem;
   font-weight: bold;
-  font-size: 80%;
-  color: #fd0;
+  color: #206396;
 }
 
 [role="banner"] .actions {
   flex-shrink: 0;
-  flex-grow: 0;
-  flex-basis: 100%;
-  margin-top: 1.5rem;
-  text-align: center;
 }
 
-[role="banner"] .shortcut {
-  font-family: monospace;
-  font-weight: bold;
-  color: #fd0;
-  margin-left: .25em;
-  font-size: 125%;
-}
-
-/* Main */
-
+/**
+ * Main
+ */
 [role="main"] {
   display: flex;
   flex-grow: 1;
@@ -128,14 +141,44 @@ label {
   font-weight: bold;
 }
 
-/* Editor */
+/**
+ * Footer
+ */
+[role="footer"] {
+  display: flex;
+  justify-content: space-between;
+}
 
+[role="footer"] .about {
+  flex-shrink: 0;
+}
+
+/**
+ * Editor
+ */
 .editor {
+  position: relative;
   display: flex;
   flex-grow: 1;
   flex-direction: column;
 }
 
+.editor .show-go-output {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  z-index: 100;
+  background: #242424;
+  color: white;
+  padding: .5rem .75rem;
+  border-radius: 2px 0 0 0;
+}
+
+/**
+ * Source
+ */
 .source textarea,
 .go-output textarea {
   padding: 0;
@@ -173,8 +216,9 @@ label {
   flex: 0 0 0;
 }
 
-/* Console */
-
+/**
+ * Console
+ */
 .console {
   position: relative;
   padding: .625rem;
@@ -185,10 +229,6 @@ label {
   overflow: auto;
   line-height: 1.5;
 }
-/*.console.error {*/
-  /*background: #401D1D;*/
-  /*color: #ff7777;*/
-/*}*/
 .console.error p {
   margin: 0;
 }
@@ -215,8 +255,9 @@ label {
   color: #ffff77;
 }
 
-/* CodeMirror */
-
+/**
+ * CodeMirror
+ */
 .editor .CodeMirror {
   position: static;
   width: 100%;
@@ -230,7 +271,6 @@ label {
   .editor .CodeMirror {
   }
 }
-
 
 .source .cm-s-default .CodeMirror-gutters,
 .source .cm-s-default.CodeMirror {
@@ -257,13 +297,9 @@ label {
   color: #f55;
 }
 
-/* Footer */
-
-.footer .powered-by {
-}
-
-/* Share Screen */
-
+/**
+ * Share Screen
+ */
 .share-screen {
   position: absolute;
   z-index: 10;
@@ -305,12 +341,19 @@ label {
   background-color: #a11;
 }
 
-/* Common */
+/**
+ * Keyboard shortcuts
+ */
+.shortcuts td:first-child {
+  font-family: monospace;
+}
 
+/**
+ * Common
+ */
 [role="banner"],
-.footer {
+[role="footer"] {
   display: flex;
-  flex-shrink: 0;
   padding: .625rem;
   background: #37a8ff;
   font-family: 'Helvetica Neue', sans-serif;
@@ -321,27 +364,37 @@ main > article  {
   font-family: 'Helvetica Neue', sans-serif;
 }
 [role="banner"] a,
-.footer a {
+[role="footer"] a {
   color: #fff2d2;
 }
 
-@media screen and (min-width: 30rem) {
-  [role="banner"] h1 {
-    font-size: 1.5rem;
-  }
-}
-
 @media screen and (min-width: 48rem) {
+  /**
+   * Header
+   */
   [role="banner"]  {
     flex-wrap: none;
     justify-content: space-between;
   }
+
   [role="banner"] .actions {
     flex-basis: auto;
     margin-top: 0;
     text-align: left;
   }
+
+  /**
+   * Editor
+   */
   .editor {
     flex-direction: row;
+  }
+
+  /**
+   * Buttons
+   */
+  button span,
+  .button span {
+    display: inline-block;
   }
 }
