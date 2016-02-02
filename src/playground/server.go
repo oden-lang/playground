@@ -16,15 +16,14 @@ const defaultProgram = `package main
 
 import fmt
 
-fib :: int -> int
-fib n -> if n == 1 then 0 else {
-  if n == 2 then 1 else {
-    fib(n - 1) + fib(n - 2)
-  }
-}
+square :: int -> int
+square n -> n * n
+
+twice :: (#a -> #a) -> #a -> #a
+twice f x -> f(f(x))
 
 main :: -> {}
-main -> fmt.Println(fib(10))`
+main -> fmt.Println("2\x2074 =", twice(square, 2))`
 
 type CodeRequest struct {
 	OdenSource string `json:"odenSource"`
