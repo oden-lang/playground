@@ -219,6 +219,7 @@ button span,
 .source {
   display: flex;
   background: white;
+  overflow: auto;
 }
 
 .go-output {
@@ -369,11 +370,13 @@ button span,
 [role="banner"],
 [role="footer"] {
   display: flex;
+  flex-shrink: 0;
   padding: .625rem;
   background: #c8dfea;
   font-family: 'Helvetica Neue', sans-serif;
   color: #206396;
 }
+
 main > article  {
   padding: 1rem;
   font-family: 'Helvetica Neue', sans-serif;
