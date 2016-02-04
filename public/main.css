@@ -328,11 +328,10 @@ button span,
   padding: 2rem;
 }
 .share-screen .inner {
-  background: #37a8ff;
+  background: #9cbece;
   width: 100%;
   max-width: 36rem;
   padding: 2rem;
-  color: white;
   border-radius: 2px;
 }
 .share-screen input {
@@ -350,6 +349,7 @@ button span,
 .share-screen .inner .actions > * {
   flex: 1 0 50%;
   margin-right: .5rem;
+  color: white;
 }
 .share-screen .inner .actions .close {
   background-color: #a11;
