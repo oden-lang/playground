@@ -16,13 +16,16 @@
     </button>
   </div>
 </div>
+
 <main role="main" class="main">
-  {{if .Deprecated}}
+
+  {{ if .Deprecated }}
   <div class="warning">
     This program is using a deprecated URL format. Press <em>Share</em>
     to get a new URL.
   </div>
-  {{end}}
+  {{ end }}
+
   <div class="editor">
     <div class="source">
       <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
@@ -42,41 +45,15 @@
       Go output
     </label>
   </div>
-  <div class="console">
-    <pre class="output"><span class="no-output">Run your program and see the output here</span></pre>
-    <div class="spinner">
-      <div class="rect1"></div>
-      <div class="rect2"></div>
-      <div class="rect3"></div>
-      <div class="rect4"></div>
-      <div class="rect5"></div>
-    </div>
-  </div>
+
+  {{ template "index/console" }}
+
+  {{ template "index/share-screen" }}
+
 </main>
 
-<div role="footer" class="footer">
-  <div class="powered-by">
-    Powered by
-    <a href="https://github.com/oden-lang/oden/releases/tag/{{ .Version }}" target="_blank">Oden {{.Version}}</a>
-    and
-    <a href="https://play.golang.org/">play.golang.org</a>
-  </div>
-  <div class="about">
-    <a href="/about">About this site</a>
-  </div>
-</div>
-<div class="share-screen">
-  <div class="inner">
-    <input type="text" class="url">
-    <div class="actions">
-      <a class="button tweet-button" href="#" target="_blank">
-        <i class="fa fa-twitter"></i>
-        Tweet
-      </a>
-      <button class="close">Close</button>
-    </div>
-  </div>
-</div>
+{{ template "footer" }}
+
 <script src="/codemirror/lib/codemirror.js"></script>
 <script src="/codemirror/mode/go/go.js"></script>
 <script src="/codemirror/mode/oden/oden.js"></script>

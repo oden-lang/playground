@@ -20,7 +20,7 @@ body {
 
 html {
   box-sizing: border-box;
-  font-family: Menlo, Monaco, monospace;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: .875rem;
 }
@@ -183,7 +183,7 @@ button span,
   bottom: 0;
   margin: 0;
   font-family: 'Helvetica Neue', sans-serif;
-  z-index: 100;
+  z-index: 5;
   background: #242424;
   color: white;
   padding: .5rem .75rem;
@@ -350,6 +350,7 @@ button span,
   flex: 1 0 50%;
   margin-right: .5rem;
   color: white;
+  font-weight: normal;
 }
 .share-screen .inner .actions .close {
   background-color: #a11;
