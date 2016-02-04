@@ -22,7 +22,7 @@ square n -> n * n
 twice :: (#a -> #a) -> #a -> #a
 twice f x -> f(f(x))
 
-main :: -> {}
+main :: -> ()
 main -> let n = twice(square, 2) in {
   fmt.Println("2\x2074 =", n)
 }`
