@@ -1,9 +1,10 @@
 /*
+ * Background: #9cbece
  * Accent: #37a8ff
- * Textual accent: #fd0;
  * Dark: #242424
  * Source: #fffafa
- * go-output: #fff2d2
+ * Logo blue: #206396
+ * Go output: #fff2d2
  */
 
 *,
@@ -47,6 +48,18 @@ th, td {
 th:not(:first-child),
 td:not(:first-child) {
   padding: .25rem .5rem;
+}
+
+a:link,
+a:active,
+a:visited {
+  font-weight: bold;
+  color: #206396;
+  transition: color .3s ease;
+}
+a:hover,
+a:focus {
+  color: #242424;
 }
 
 /**
@@ -112,6 +125,7 @@ button span,
 [role="banner"] .home h1 {
   margin: 0;
   font-size: 1.5rem;
+  color: #206396;
 }
 
 [role="banner"] .tagline {
@@ -314,11 +328,10 @@ button span,
   padding: 2rem;
 }
 .share-screen .inner {
-  background: #37a8ff;
+  background: #9cbece;
   width: 100%;
   max-width: 36rem;
   padding: 2rem;
-  color: white;
   border-radius: 2px;
 }
 .share-screen input {
@@ -336,6 +349,7 @@ button span,
 .share-screen .inner .actions > * {
   flex: 1 0 50%;
   margin-right: .5rem;
+  color: white;
 }
 .share-screen .inner .actions .close {
   background-color: #a11;
@@ -355,17 +369,13 @@ button span,
 [role="footer"] {
   display: flex;
   padding: .625rem;
-  background: #37a8ff;
+  background: #c8dfea;
   font-family: 'Helvetica Neue', sans-serif;
-  color: white;
+  color: #206396;
 }
 main > article  {
   padding: 1rem;
   font-family: 'Helvetica Neue', sans-serif;
-}
-[role="banner"] a,
-[role="footer"] a {
-  color: #fff2d2;
 }
 
 @media screen and (min-width: 48rem) {
