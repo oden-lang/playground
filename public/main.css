@@ -326,35 +326,45 @@ button span,
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, .8);
-  padding: 2rem;
+  padding: 1rem;
 }
 .share-screen .inner {
   background: #9cbece;
   width: 100%;
   max-width: 36rem;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 2px;
 }
-.share-screen input {
+.share-screen [type="text"] {
   width: 100%;
-  font-size: 150%;
-  padding: 1rem;
+  font-size: 1.5rem;
+  padding: .75rem;
   border: none;
   border-radius: 2px;
 }
-.share-screen .inner .actions {
+.share-screen .actions {
   display: flex;
-  margin-top: 2rem;
+  margin-top: 1rem;
   text-align: right;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
-.share-screen .inner .actions > * {
-  flex: 1 0 50%;
-  margin-right: .5rem;
+.share-screen .actions > * {
   color: white;
   font-weight: normal;
+  padding: 1rem;
+  flex-basis: 100%;
 }
-.share-screen .inner .actions .close {
-  background-color: #a11;
+.share-screen .actions > * + * {
+  margin-top: .5rem;
+}
+.share-screen .actions .close {
+  background: #206396;
+}
+.share-screen h2 {
+  font-size: 1.25rem;
+  margin: 0 0 .5rem 0;
+  color: #206396;
 }
 
 /**
@@ -373,15 +383,27 @@ button span,
   flex-shrink: 0;
   padding: .625rem;
   background: #c8dfea;
-  font-family: 'Helvetica Neue', sans-serif;
   color: #206396;
 }
 
 main > article  {
   padding: 1rem;
-  font-family: 'Helvetica Neue', sans-serif;
 }
 
+/* 480 px */
+@media screen and (min-width: 30rem) {
+  .share-screen {
+    padding: 1.5rem;
+  }
+  .share-screen .actions {
+    flex-wrap: nowrap;
+  }
+  .share-screen .actions > * + * {
+    margin: 0 0 0 .5rem;
+  }
+}
+
+/* 768 px */
 @media screen and (min-width: 48rem) {
   /**
    * Header
