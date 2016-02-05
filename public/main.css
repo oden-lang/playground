@@ -224,7 +224,7 @@ button span,
 
 .go-output {
   background: #fff2d2;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .hidden {
@@ -276,7 +276,6 @@ button span,
 .editor .CodeMirror {
   position: static;
   width: 100%;
-  height: 100%;
   padding: 10px;
   font-family: 'Monaco', 'Consolas', monospace;
   line-height: 1.6;
