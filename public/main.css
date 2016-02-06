@@ -243,6 +243,7 @@ button span,
   color: white;
   overflow: auto;
   line-height: 1.5;
+  font-family: 'Monaco', 'Consolas', monospace;
 }
 .console.error p {
   margin: 0;

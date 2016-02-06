@@ -9,13 +9,13 @@ import (
 	"strings"
 )
 
-var odenc string
+var oden string
 
 func init() {
-	odenc = os.Getenv("ODENC")
-	if odenc == "" {
-		fmt.Println("Using odenc from $PATH")
-		odenc = "odenc"
+	oden = os.Getenv("ODEN_CLI")
+	if oden == "" {
+		fmt.Println("Using oden from $PATH")
+		oden = "oden"
 	}
 	goRoot := os.Getenv("GOROOT")
 
@@ -34,9 +34,9 @@ func init() {
 }
 
 func getOdenVersion() (string, error) {
-	out, err := run(odenc, "--version")
+	out, err := run(oden, "--version")
 	if err != nil {
-		return "", errors.New("Failed to get odenc version: " + err.Error())
+		return "", errors.New("Failed to get oden version: " + err.Error())
 	}
 	return strings.SplitAfter(strings.TrimSpace(out), " ")[0], nil
 }
@@ -59,7 +59,7 @@ func compile(code string) (string, error) {
 		return "", errors.New("Failed to write Oden source file: " + err.Error())
 	}
 
-	out, err := run(odenc, "-p"+tmpDir, "-o"+tmpDir, "-M")
+	out, err := run(oden, "-p"+tmpDir, "-o"+tmpDir, "-M", "build")
 	if err != nil {
 		return "", err
 	}
