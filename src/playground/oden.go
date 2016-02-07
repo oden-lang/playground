@@ -66,6 +66,9 @@ func compile(code string) (string, error) {
 	fmt.Println("Oden output:", out)
 
 	goOutputPath := path.Join(tmpDir, "src", "main.go")
+	if _, err := os.Stat(goOutputPath); os.IsNotExist(err) {
+		return "", errors.New("The program must be the main package")
+	}
 	if _, err = run("gofmt", "-w", goOutputPath); err != nil {
 		return "", errors.New("Failed to gofmt Go output file: " + err.Error())
 	}
