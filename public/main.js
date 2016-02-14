@@ -27,8 +27,9 @@ function displayError(result) {
   $console.addClass('error');
   var md = result.error.split('\n').map(function (line) {
     return line
-      .replace(/^Error:(.?)/i, '<span class="heading heading-error">Error:</span>$1')
-      .replace(/^Warning:(.?)/i, '<span class="heading heading-warning">Warning:</span>$1')
+      .replace(/^.+?main.oden/i, 'main.go')
+      .replace(/\serror:(.?)/i, '<span class="heading heading-error"> error:</span>$1')
+      .replace(/warning:(.?)/i, '<span class="heading heading-warning">warning:</span>$1')
       .replace (/^(For more information see.*)/i, '$1\n\n');
   }).join('\n');
   $consoleOutput.html(marked(md));

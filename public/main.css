@@ -262,7 +262,6 @@ button span,
 }
 .console .heading {
   font-weight: bold;
-  text-transform: uppercase;
 }
 .console .heading-error {
   color: #ff7777;
