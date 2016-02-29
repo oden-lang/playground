@@ -52,7 +52,17 @@
 
 </main>
 
-{{ template "footer" }}
+<div role="footer" class="footer">
+  <div class="powered-by">
+    Powered by
+    <a href="https://github.com/oden-lang/oden/releases/tag/{{ .Version }}" target="_blank">Oden {{.Version}}</a>
+    and
+    <a href="https://play.golang.org/">play.golang.org</a>
+  </div>
+  <div class="about">
+    <a href="/about">About this site</a>
+  </div>
+</div>
 
 <script src="/codemirror/lib/codemirror.js"></script>
 <script src="/codemirror/mode/go/go.js"></script>

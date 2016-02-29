@@ -17,15 +17,13 @@ const defaultProgram = `package main
 import fmt
 
 square :: int -> int
-square n -> n * n
+square(n) = n * n
 
 twice :: (#a -> #a) -> #a -> #a
-twice f x -> f(f(x))
+twice(f, x) = f(f(x))
 
 main :: -> ()
-main -> let n = twice(square, 2) in {
-  fmt.Println("2\x2074 =", n)
-}`
+main() = fmt.Println("2\x2074 =", twice(square, 2))`
 
 type CodeRequest struct {
 	OdenSource string `json:"odenSource"`
