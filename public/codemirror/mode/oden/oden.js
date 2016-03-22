@@ -24,7 +24,7 @@ CodeMirror.defineMode("oden", function(config) {
     "float32":true, "float64":true, "int8":true, "int16":true, "int32":true,
     "int64":true, "string":true, "uint8":true, "uint16":true, "uint32":true,
     "uint64":true, "int":true, "uint":true, "uintptr":true, "->":true,
-    "::":true, "fn": true, "let":true, "in":true
+    ":":true, "forall": true, "let":true, "in":true
   };
 
   var atoms = { "true":true, "false":true, "iota":true, "nil":true,
