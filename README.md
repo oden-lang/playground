@@ -2,8 +2,11 @@
 
 ## Run
 
+You need [gb](https://getgb.io/) to build the server.
+
 ```bash
-ODEN_CLI=path/to/bin/oden go run server.go
+gb build
+ODEN_CLI=path/to/bin/oden bin/playground
 # or with docker-compose:
 docker-compose build web
 docker-compose up web
