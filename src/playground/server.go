@@ -14,16 +14,24 @@ import (
 
 const defaultProgram = `package main
 
-import fmt
+// Types can be inferred by Oden.
+move(p) = { x = p.x + 10, y = p.y + 10 }
 
-square : int -> int
-square(n) = n * n
+// Or you can annotate them yourself. We use records and the block expression here (for demo purposes).
+printPoint : forall r. { x : int, y : int | r } -> ()
+printPoint(p) = {
+	print(p.x)
+	print(", ")
+	print(p.y)
+}
 
+// Oden supports higher-order functions and polymorphic functions:
 twice : forall a. (a -> a) -> a -> a
 twice(f, x) = f(f(x))
 
+// We begin our programs in the 'main' function, which always has type '-> ()'.
 main : -> ()
-main() = fmt.Println("2\x2074 =", twice(square, 2))`
+main() = printPoint(twice(move, { x = 5, y = 10 }))`
 
 type CodeRequest struct {
 	OdenSource string `json:"odenSource"`
