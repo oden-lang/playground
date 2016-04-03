@@ -2,6 +2,12 @@
 	"version": 0,
 	"dependencies": [
 		{
+			"importpath": "github.com/codegangsta/inject",
+			"repository": "https://github.com/codegangsta/inject",
+			"revision": "33e0aa1cb7c019ccc3fbe049a8262a6403d30504",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/codegangsta/negroni",
 			"repository": "https://github.com/codegangsta/negroni",
 			"revision": "c7477ad8e330bef55bf1ebe300cf8aa67c492d1b",
@@ -11,6 +17,12 @@
 			"importpath": "github.com/fatih/color",
 			"repository": "https://github.com/fatih/color",
 			"revision": "9aae6aaa22315390f03959adca2c4d395b02fcef",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/go-martini/martini",
+			"repository": "https://github.com/go-martini/martini",
+			"revision": "dafdd96c12087352f3cf407b8f2a058028edf715",
 			"branch": "master"
 		},
 		{
@@ -50,9 +62,21 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/justinas/alice",
+			"repository": "https://github.com/justinas/alice",
+			"revision": "29a850317649fc021f42f80ec29552f9a3156ee9",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/lib/pq",
 			"repository": "https://github.com/lib/pq",
 			"revision": "11fc39a580a008f1f39bb3d11d984fb34ed778d9",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/martini-contrib/render",
+			"repository": "https://github.com/martini-contrib/render",
+			"revision": "ec18f8345a1181146728238980606fb1d6f40e8c",
 			"branch": "master"
 		},
 		{
@@ -80,10 +104,41 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/oxtoacart/bpool",
+			"repository": "https://github.com/oxtoacart/bpool",
+			"revision": "4e1c5567d7c2dd59fa4c7c83d34c2f3528b025d6",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/rs/cors",
+			"repository": "https://github.com/rs/cors",
+			"revision": "3ca2b550f6a4333b63c845850f760a7d00412cd6",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/rs/xhandler",
+			"repository": "https://github.com/rs/xhandler",
+			"revision": "d9d9599b6aaf6a058cb7b1f48291ded2cbd13390",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/unrolled/render",
 			"repository": "https://github.com/unrolled/render",
 			"revision": "54bd818bb56dbf2d45d81fe4a52fd28b08935293",
 			"branch": "v1"
+		},
+		{
+			"importpath": "github.com/zenazn/goji",
+			"repository": "https://github.com/zenazn/goji",
+			"revision": "1925ec6302925f4760d7a11cc17036f44ec98d5b",
+			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/net/context",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "3e8a7b0329d536af18e227bb21b6da4d1dbbe180",
+			"branch": "master",
+			"path": "/context"
 		},
 		{
 			"importpath": "gopkg.in/inf.v0",

@@ -9,6 +9,7 @@ import (
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"github.com/unrolled/render"
 )
 
@@ -193,6 +194,9 @@ func main() {
 	}
 
 	n := negroni.Classic()
+	n.Use(cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+	}))
 	n.UseHandler(router)
 	n.Use(negroni.NewStatic(http.Dir("public")))
 	n.Run(":" + port)
