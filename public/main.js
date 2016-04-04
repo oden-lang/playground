@@ -95,7 +95,7 @@ function compileAndRun() {
 
 function setupEditor() {
   $(document).on('keydown', function (event) {
-    if (event.ctrlKey && event.keyCode === 82) {
+    if (event.shiftKey && event.keyCode === 13) {
       event.preventDefault();
       compileAndRun();
     }
