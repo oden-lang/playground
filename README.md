@@ -14,8 +14,18 @@ docker-compose up web
 
 ## Release
 
-Requires access to the Heroku account.
+First build and push a new tag to the Docker Hub.
 
 ```bash
-heroku docker:release
+docker build owickstrom/oden-playground:<VERSION> .
+docker push owickstrom/oden-playground:<VERSION>
+```
+
+Then SSH into the AWS server and run `~/update-oden-playground.sh`.
+
+```bash
+bash update-oden-playground.sh
+Which tag of the Oden playground would you like to run?
+<VERSION>
+...
 ```
