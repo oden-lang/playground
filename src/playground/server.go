@@ -15,10 +15,17 @@ import (
 
 const defaultProgram = `package main
 
-// Types can be inferred by Oden.
-move(p) = { x = p.x + 10, y = p.y + 10 }
+// Oden has ad-hoc polymorphism through records.
+impl Monoid({x : int, y: int}) {
+	Apply(p1, p2 ) = { x = p1.x + p2.x, y = p1.y + p2.y }  
+}
 
-// Or you can annotate them yourself. We use records and the block expression here (for demo purposes).
+// Types can be inferred by Oden. Here we also use the overloaded ++ function which
+// is an alias for Monoid::Apply.
+move(p) = p ++ { x = 10, y = 20 }
+
+// You can explictly annotate the types. We use records and the
+// block expression here (for demo purposes).
 printPoint : forall r. { x : int, y : int | r } -> ()
 printPoint(p) = {
 	print(p.x)
@@ -26,7 +33,7 @@ printPoint(p) = {
 	print(p.y)
 }
 
-// Oden supports higher-order functions and polymorphic functions:
+// Oden supports higher-order functions and polymorphic functions.
 twice : forall a. (a -> a) -> a -> a
 twice(f, x) = f(f(x))
 

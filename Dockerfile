@@ -15,4 +15,4 @@ EXPOSE 8080
 ENV GOPATH=/go
 ENV ODEN_CLI=/opt/oden/bin/oden
 
-#ENTRYPOINT ["bin/playground"]
+ENTRYPOINT ["bin/playground"]
