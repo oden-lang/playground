@@ -17,7 +17,7 @@ docker-compose up web
 First build and push a new tag to the Docker Hub.
 
 ```bash
-docker build owickstrom/oden-playground:<VERSION> .
+docker build -t owickstrom/oden-playground:<VERSION> .
 docker push owickstrom/oden-playground:<VERSION>
 ```
 

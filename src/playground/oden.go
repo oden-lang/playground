@@ -21,11 +21,11 @@ func init() {
 
 	if goRoot == "" {
 		fmt.Println("Setting GOROOT to /app/user/go for Heroku compatibility")
-		os.Setenv("GOROOT", "/app/user/go")
+		os.Setenv("GOROOT", "/usr/local/go")
 
-		fmt.Println("Including /app/user/go/bin in PATH")
+		fmt.Println("Including /usr/local/go/bin in PATH")
 		path := os.Getenv("PATH")
-		os.Setenv("PATH", path+":/app/user/go/bin")
+		os.Setenv("PATH", path+":/usr/local/go/bin")
 	}
 
 	os.Setenv("LC_ALL", "en_US.UTF-8")
