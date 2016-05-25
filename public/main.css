@@ -69,11 +69,11 @@ a:focus {
 .button,
 button {
   display: inline-block;
-  padding: .5rem 1rem;
+  padding: 5px 15px;
   margin: 0;
   border: 0;
-  border-radius: 2px;
-  background: #444;
+  border-radius: 0;
+  background: #333;
   color: white;
   font-size: 100%;
   font-family: inherit;
@@ -340,7 +340,7 @@ button span,
   width: 100%;
   padding: 10px;
   font-size: inherit;
-  font-family: inherit;
+  font-family: 'Ubuntu Mono', monospace;
   background: #eee;
   border: none;
 }
