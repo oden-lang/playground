@@ -119,7 +119,7 @@ button span,
   padding: 0 10px;
   background: #fff;
   color: #444;
-  border-bottom: 1px solid #e8e8e8
+  border-bottom: 1px solid #e8e8e8;
 }
 
 [role="banner"] .home {
@@ -147,6 +147,13 @@ button span,
 [role="banner"] .actions {
   flex-shrink: 0;
 }
+[role="banner"] .actions * {
+  margin-left: 5px;
+}
+[role="banner"] .actions label {
+  line-height: 1.3;
+  vertical-align: middle;
+}
 
 /**
  * Main
@@ -172,6 +179,7 @@ button span,
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  border-top: 1px solid #e8e8e8;
 }
 
 [role="footer"] .about {
@@ -186,18 +194,6 @@ button span,
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-}
-
-.editor .show-go-output {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-  z-index: 5;
-  background: #444;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 2px 0 0 0;
 }
 
 /**
@@ -217,43 +213,56 @@ button span,
   padding: 14px;
 }
 
-.source,
-.go-output {
-  position: relative;
-  flex-basis: 50%;
-  flex-grow: 1;
-
-  transition: all .1s linear;
+.outputs {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  border-left: 1px solid #e8e8e8;
 }
 
 .source {
-  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 0;
   background: white;
   overflow: auto;
 }
 
 .go-output {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50%;
   background: #fff2d2;
   overflow: auto;
 }
 
 .hidden {
-  flex: 0 0 0;
+  display: none;
 }
 
 /**
  * Console
  */
 .console {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
   padding: 10px;
-  min-height: 8rem;
-  max-height: 16rem;
-  background: #444;
-  color: white;
   overflow: auto;
-  line-height: 1.5;
+  line-height: 1.3;
   font-family: "Ubuntu Mono", monospace;
+  background: #eee;
+}
+.go-output.hidden + .console {
+  top: 0;
 }
 .console.error p {
   margin: 0;
@@ -277,6 +286,43 @@ button span,
 }
 .console .heading-warning {
   color: #ffff77;
+}
+
+@media screen and (orientation: portrait) {
+  .outputs {
+    position: absolute;
+    top: 75%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-left: none;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .source {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 25%;
+  }
+
+  .go-output {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  .console {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 /**
@@ -354,7 +400,7 @@ button span,
   flex-wrap: wrap;
 }
 .share-screen .actions > * {
-  color: white;
+  color: inherit;
   font-weight: normal;
   padding: 1rem;
   flex-basis: 100%;
@@ -364,6 +410,12 @@ button span,
 }
 .share-screen .actions .close {
   background: #206396;
+  color: #fff;
+}
+.share-screen .actions .close:hover,
+.share-screen .actions .close:active,
+.share-screen .actions .close:focus {
+  background: #17486d;
 }
 .share-screen h2 {
   margin: 0 0 .5rem 0;
