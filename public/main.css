@@ -56,7 +56,6 @@ td:not(:first-child) {
 a:link,
 a:active,
 a:visited {
-  font-weight: bold;
   color: #206396;
 }
 a:hover,
@@ -115,22 +114,16 @@ button span,
  * Header
  */
 [role="banner"] {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
   padding: 0 10px;
   background: #fff;
   color: #444;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid #ddd;
 }
 
 [role="banner"] .home {
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  min-height: 56px;
-  height: 48px;
-  padding-left: 68px;
+  height: 56px;
+  width: 56px;
   background: url(/img/oden-logo.png) no-repeat left center;
   background-size: 48px 40px;
   text-decoration: none;
@@ -138,23 +131,58 @@ button span,
 }
 
 [role="banner"] .home h1 {
+  display: block;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  padding: 10px 76px;
   margin: 0;
+
   font-size: 22px;
   font-weight: 400;
+  line-height: 36px;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
-[role="banner"] .home:hover h1 {
-  text-decoration: underline;
+@media screen and (max-width: 480px) {
+  [role="banner"] .home h1 {
+    font-size: 17px;
+    text-align: center;
+  }
 }
 
-[role="banner"] .actions {
-  flex-shrink: 0;
+.site-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  height: 56px;
 }
-[role="banner"] .actions * {
-  margin-left: 5px;
-}
-[role="banner"] .actions label {
-  line-height: 1.3;
+.site-nav .page-link {
+  display: inline-block;
+  color: #333;
+  line-height: 56px;
   vertical-align: middle;
+  text-decoration: none;
+  font-size: 19px;
+  padding: 0 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .site-nav .page-link {
+    font-size: 17px;
+  }
+}
+
+[role="banner"] .home:hover h1,
+[role="banner"] .page-link:hover {
+  text-decoration: underline;
 }
 
 /**
@@ -181,7 +209,7 @@ button span,
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid #ddd;
 }
 
 [role="footer"] .about {
@@ -215,13 +243,49 @@ button span,
   padding: 14px;
 }
 
-.outputs {
+.side-pane {
   position: absolute;
   top: 0;
   left: 50%;
   right: 0;
   bottom: 0;
-  border-left: 1px solid #e8e8e8;
+  border-left: 1px solid #ddd;
+}
+
+.outputs {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  border-bottom: 1px solid #ddd;
+}
+.toolbar button,
+.toolbar label {
+  position: relative;
+  z-index: 3;
+  display: block;
+  float: left;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 10px;
+  vertical-align: middle;
+  font-family: 'Ubuntu Mono', monospace;
+}
+.toolbar button {
+  background: none;
+}
+.toolbar button:focus,
+.toolbar button:hover {
+  text-decoration: underline;
 }
 
 .source {
@@ -241,12 +305,51 @@ button span,
   right: 0;
   bottom: 50%;
   background: #fff2d2;
+  border-bottom: 1px solid #ddd;
   overflow: auto;
 }
 
 .hidden {
   display: none;
 }
+
+@media screen and (orientation: portrait) {
+  .side-pane {
+    position: absolute;
+    top: 75%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-left: none;
+    border-top: 1px solid #ddd;
+  }
+
+  .source {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 25%;
+  }
+
+  .go-output {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  .console {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
 
 /**
  * Console
@@ -288,43 +391,6 @@ button span,
 }
 .console .heading-warning {
   color: #ffff77;
-}
-
-@media screen and (orientation: portrait) {
-  .outputs {
-    position: absolute;
-    top: 75%;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-left: none;
-    border-top: 1px solid #e8e8e8;
-  }
-
-  .source {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 25%;
-  }
-
-  .go-output {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-  }
-
-  .console {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
 }
 
 /**
@@ -447,7 +513,7 @@ main > article  {
 }
 
 /* 480 px */
-@media screen and (min-width: 30rem) {
+@media screen and (min-width: 480px) {
   .share-screen {
     padding: 1.5rem;
   }
@@ -459,8 +525,7 @@ main > article  {
   }
 }
 
-/* 768 px */
-@media screen and (min-width: 48rem) {
+@media screen and (min-width: 768px) {
   /**
    * Header
    */
@@ -469,24 +534,6 @@ main > article  {
     justify-content: space-between;
   }
 
-  [role="banner"] .actions {
-    flex-basis: auto;
-    margin-top: 0;
-    text-align: left;
-  }
-
-  /**
-   * Editor
-   */
-  .editor {
-    flex-direction: row;
-  }
-
-  /**
-   * Buttons
-   */
-  button span,
-  .button span {
-    display: inline-block;
+  .toolbar {
   }
 }

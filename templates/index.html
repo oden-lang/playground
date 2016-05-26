@@ -3,20 +3,9 @@
     <h1>The Oden Playground</h1>
   </a>
 
-  <div class="actions">
-    <label for="show-go-output" class="show-go-output">
-      <input type="checkbox" id="show-go-output" value="">
-      Go output
-    </label>
-
-    <button class="run" title="Run">
-      Run 
-    </button>
-
-    <button class="share" title="Share">
-      Share
-    </button>
-  </div>
+  <nav class="site-nav">
+    <a class="page-link" href="https://oden-lang.org">Home</a>
+  </nav>
 </div>
 
 <main role="main" class="main">
@@ -32,25 +21,41 @@
     <div class="source">
       <textarea name="odenSource" autofocus>{{.OdenSource}}</textarea>
     </div>
-    <div class="outputs">
-      <div class="go-output hidden">
-        <textarea></textarea>
-        <div class="spinner">
-          <div class="rect1"></div>
-          <div class="rect2"></div>
-          <div class="rect3"></div>
-          <div class="rect4"></div>
-          <div class="rect5"></div>
-        </div>
+    <div class="side-pane">
+      <div class="toolbar">
+        <label for="show-go-output" class="show-go-output">
+          <input type="checkbox" id="show-go-output" value="">
+          Go output
+        </label>
+
+        <button class="run" title="Run">
+          Run 
+        </button>
+
+        <button class="share" title="Share">
+          Share
+        </button>
       </div>
-      <div class="console">
-        <pre class="output"><span class="no-output">Run your program and see the output here</span></pre>
-        <div class="spinner">
-          <div class="rect1"></div>
-          <div class="rect2"></div>
-          <div class="rect3"></div>
-          <div class="rect4"></div>
-          <div class="rect5"></div>
+      <div class="outputs">
+        <div class="go-output hidden">
+          <textarea></textarea>
+          <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+        </div>
+        <div class="console">
+          <pre class="output"><span class="no-output">Run your program and see the output here</span></pre>
+          <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -63,7 +68,7 @@
 <div role="footer" class="footer">
   <div class="powered-by">
     Powered by
-    <a href="https://oden-lang.org/user-guide/{{ .Version }}" target="_blank">Oden {{.Version}}</a>
+    <a href="https://oden-lang.org/user-guide/{{ .Version }}/" target="_blank">Oden {{.Version}}</a>
     and
     <a href="https://play.golang.org/">play.golang.org</a>.
   </div>
