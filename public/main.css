@@ -1,8 +1,6 @@
 /*
  * Background: #9cbece
  * Accent: #37a8ff
- * Dark: #242424
- * Source: #fffafa
  * Logo blue: #206396
  * Go output: #fff2d2
  */
@@ -29,7 +27,11 @@ body {
   font-family: "Crimson Text", "Baskerville", serif;
   font-size: 16px;
   line-height: 1.3;
-  color: #111;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
 }
 
 pre, code {
@@ -56,11 +58,11 @@ a:active,
 a:visited {
   font-weight: bold;
   color: #206396;
-  transition: color .3s ease;
 }
 a:hover,
 a:focus {
-  color: #242424;
+  color: #17486d;
+  text-decoration: none;
 }
 
 /**
@@ -439,6 +441,9 @@ button span,
 
 main > article  {
   padding: 20px;
+  margin: 0 auto;
+  max-width: 760px;
+  font-size: 19px;
 }
 
 /* 480 px */
