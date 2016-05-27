@@ -27,7 +27,7 @@ function displayError(result) {
   $console.addClass('error');
   var md = result.error.split('\n').map(function (line) {
     return line
-      .replace(/^.+?main.oden/i, 'main.go')
+      .replace(/^.+?main.oden/i, 'main.oden')
       .replace(/\serror:(.?)/i, '<span class="heading heading-error"> error:</span>$1')
       .replace(/warning:(.?)/i, '<span class="heading heading-warning">warning:</span>$1')
       .replace (/^(For more information see.*)/i, '$1\n\n');

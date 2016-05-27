@@ -374,10 +374,9 @@ button span,
 }
 .console.error code {
   font-weight: bold;
-  color: #ffcccc;
 }
 .console.error a {
-  color: #ffffff;
+  color: inherit;
 }
 .console .no-output {
   color: #aaa;
@@ -387,10 +386,10 @@ button span,
   font-weight: bold;
 }
 .console .heading-error {
-  color: #ff7777;
+  color: #B50000;
 }
 .console .heading-warning {
-  color: #ffff77;
+  color: #37a8ff;
 }
 
 /**
