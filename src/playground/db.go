@@ -62,5 +62,6 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	database.SetMaxOpenConns(20)
 	db = database
 }
