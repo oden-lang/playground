@@ -142,6 +142,7 @@ function setupEditor() {
     $.ajax({
       type: 'POST',
       url: '/p',
+      contentType: 'application/json',
       data: JSON.stringify({ odenSource: code }),
       dataType: 'json'
     }).done(function (result) {

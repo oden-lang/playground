@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
@@ -151,9 +152,13 @@ func main() {
 
 	router.HandleFunc("/p", func(w http.ResponseWriter, req *http.Request) {
 		var saveReq CodeRequest
-		if err := json.NewDecoder(req.Body).Decode(&saveReq); err != nil {
-			http.Error(w, "Could not decode JSON", http.StatusBadRequest)
-			return
+		if req.Header.Get("Content-Type") == "application/json" {
+			if err := json.NewDecoder(req.Body).Decode(&saveReq); err != nil {
+				http.Error(w, "Could not decode JSON", http.StatusBadRequest)
+				return
+			}
+		} else {
+			saveReq = CodeRequest{req.FormValue("OdenSource")}
 		}
 
 		id, err := saveProgram(saveReq.OdenSource)
@@ -162,11 +167,15 @@ func main() {
 			http.Error(w, "Could not save program", http.StatusInternalServerError)
 			return
 		}
-
-		r.JSON(w, http.StatusOK, SaveResponse{
+		saveResponse := SaveResponse{
 			id,
 			"/p/" + id,
-		})
+		}
+		if strings.Contains(req.Header.Get("Accept"), "application/json") {
+			r.JSON(w, http.StatusOK, saveResponse)
+		} else {
+			http.Redirect(w, req, saveResponse.Path, http.StatusFound)
+		}
 	}).Methods("POST")
 
 	// For backwards compatibility
